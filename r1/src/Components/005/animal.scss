@@ -1,0 +1,28 @@
+.fox {
+    letter-spacing: -2px;
+    .animal {
+        color: orangered;
+    }
+    span {
+        font-size: 22px;
+    }
+}
+
+.racoon {
+    letter-spacing: 5px;
+    .animal {
+        color: skyblue;
+        &.red {
+            color: crimson;
+        }
+    }
+    span {
+        font-style: italic;
+    }
+}
+
+.pinkBox {
+    width: 50px;
+    height: 50px;
+    background-color: pink;
+}
