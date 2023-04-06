@@ -77,6 +77,28 @@ code {
                 line-height: 40px;
             }
         }
+        &.spin {
+            animation: App-logo-spin infinite 20s linear;
+            span {
+                animation: App-logo-spin infinite 20s linear;
+                animation-direction: reverse;
+            }
+        }
+        &.spin-back {
+            animation: App-logo-spin infinite 20s linear;
+            animation-direction: reverse;
+            span {
+                animation: App-logo-spin infinite 20s linear;
+            }
+        }
+        &.egg {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 126px;
+            height: 180px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
     }
 }
 
@@ -88,6 +110,8 @@ $yellow: darkorange;
 $green: greenyellow;
 button {
     display: inline-block;
+    min-width: 120px;
+    margin: 10px;
     padding: .75rem 1.25rem;
     border-radius: 10rem;
     color: #fff;
