@@ -72,6 +72,7 @@ code {
         background-color: #80808070;
         border: 2px solid #808080;
         transition: all 0.5s;
+        position: relative;
         &.zana {
             span {
                 font-family: $zana;
@@ -204,5 +205,14 @@ button {
         &:before {
             background-color: darken($green, 15%);
         }
+    }
+    &.small {
+        padding: .7rem .7rem;
+        border-radius: 10rem;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 1rem;
+        letter-spacing: .1rem;
+        line-height: 1;
     }
 }
