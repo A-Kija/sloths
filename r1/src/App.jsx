@@ -1,5 +1,6 @@
 import './App.scss';
-import ReactState2 from './Components/008/ReactState2';
+import ReactList from './Components/008/ReactList';
+// import ReactState2 from './Components/008/ReactState2';
 
 function App() {
 
@@ -8,7 +9,7 @@ function App() {
         <div className="App">
             <header className="App-header">
                 
-                <ReactState2 />
+                <ReactList />
 
             </header>
         </div>

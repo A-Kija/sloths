@@ -66,6 +66,7 @@ code {
         border-radius: 5px;
         color: white;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         background-color: #80808070;
@@ -99,6 +100,10 @@ code {
             width: 126px;
             height: 180px;
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+        &.big {
+            width: 250px;
+            height: 250px;
         }
     }
 }
