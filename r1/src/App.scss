@@ -70,6 +70,7 @@ code {
         align-items: center;
         background-color: #80808070;
         border: 2px solid #808080;
+        transition: all 0.5s;
         &.zana {
             span {
                 font-family: $zana;
