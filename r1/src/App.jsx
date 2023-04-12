@@ -1,38 +1,65 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
-import Square from './Components/008/Square';
-import Create from './Components/008/Create';
-import Stat from './Components/008/Stat';
-const seaPlaners = [
-    { id: 1, type: 'man', name: 'Lina', color: 'skyblue' },
-    { id: 2, type: 'car', name: 'Opel', color: 'crimson' },
-    { id: 3, type: 'animal', name: 'Vilkas', color: 'pink' },
-    { id: 4, type: 'fish', name: 'Ungurys', color: 'orange' },
-    { id: 5, type: 'man', name: 'Tomas', color: 'pink' },
-    { id: 6, type: 'animal', name: 'Bebras', color: 'crimson' },
-    { id: 7, type: 'animal', name: 'Barsukas', color: 'pink' },
-    { id: 8, type: 'car', name: 'MB', color: 'skyblue' },
-    { id: 9, type: 'car', name: 'ZIL', color: 'crimson' },
-    { id: 10, type: 'man', name: 'Teta Toma', color: 'orange' },
-];
+import randColor from './Functions/randColor';
+import Square from './Components/009/Square';
+import { v4 as uuidv4 } from 'uuid';
+
 
 function App() {
 
-    const [sq, setSquare] = useState(seaPlaners);
 
+    const [sq, setSq] = useState(null);
+
+    const [racoon, setRacoon] = useState({})
+
+    const addSquare = _ => {
+        setSq(s => [...s, {c:randColor(), id: uuidv4()}])
+    }
+
+    useEffect(() => {
+        if (null !== localStorage.getItem('sq')) {
+            setSq(JSON.parse(localStorage.getItem('sq')))
+        } else {
+            setSq([]);
+        }
+
+    }, []);
+
+
+    useEffect(() => {
+        if (null === sq) {
+            return;
+        }
+        localStorage.setItem('sq', JSON.stringify(sq));
+    }, [sq]);
+
+
+    const write = _ => {
+        localStorage.setItem('r', JSON.stringify({t:'Racoon trash bandit'}));
+    }
+
+    const read = _ => {
+        setRacoon(JSON.parse(localStorage.getItem('r')));
+    }
+
+    const clear = _ => {
+        localStorage.removeItem('r');
+    }
 
     return (
         <div className="App">
             <header className="App-header">
-                <h1>CRUD</h1>
-                <span>Create Read Update Delete</span>
+                <h1>life cycle: LIFE & DEAD</h1>
                 <div className="squares">
                     {
-                        sq.map(s => <Square key={s.id} data={s} setSquare={setSquare} />)
+                        sq?.map(s => <Square key={s.id} square={s} setSq={setSq} />)
                     }
                 </div>
-                    <Create sq={sq} setSquare={setSquare} />
-                    <Stat sq={sq} />
+                <button className="green" onClick={addSquare}>[+]</button>
+                <h1>Local Storage: {racoon.t}</h1>
+                <button className="blue" onClick={write}>Racoon write</button>
+                <button className="pink" onClick={read}>Racoon read</button>
+                <button className="red" onClick={clear}>Racoon clear</button>
             </header>
         </div>
     );
