@@ -21,7 +21,7 @@ function Ganykla() {
 
     useEffect(() => {
         if (null !== localStorage.getItem('farm')) {
-            setAnimals(JSON.parse(localStorage.getItem('farm')))
+            setAnimals(JSON.parse(localStorage.getItem('farm')));
         } else {
             setAnimals([]);
         }
