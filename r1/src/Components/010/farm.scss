@@ -1,0 +1,42 @@
+.ganykla {
+    display: flex;
+    width: 90%;
+    gap: 10px;
+    margin-bottom: 80px;
+
+    .dalis {
+        width: 50%;
+        display: flex;
+
+        border: 1px solid yellowgreen;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .tvora {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 20px;
+        .gyvulys {
+            width: 200px;
+            height: 200px;
+            border-radius: 5px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #5066d270;
+            border: 2px solid #5066d2;
+            transition: all 0.5s;
+            position: relative;
+            cursor: pointer;
+        }
+    }
+}
