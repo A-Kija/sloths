@@ -32,7 +32,7 @@ code {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
@@ -242,6 +242,43 @@ input {
         border: none;
         padding: 0;
     }
+}
+
+select {
+    font-family: $mono;
+    font-size: 30px;
+    outline: none;
+    border: none;
+    background-color: skyblue;
+    padding: 5px 7px;
+    border-radius: 5px;
+    color: white;
+    margin: 5px;
+}
+
+label {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 26px;
+    line-height: 26px;
+    font-family: $mono;
+    user-select: none;
+    transition: all 0.3s;
+    margin: 5px;
+}
+
+[type=checkbox]:checked + label {
+    background-color: skyblue;
+}
+
+[type=checkbox] {
+    display: none;
 }
 
 fieldset {
