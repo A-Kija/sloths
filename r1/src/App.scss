@@ -1,7 +1,8 @@
 $mono: 'DM Mono',
-monospace;
+    monospace;
 $zana: 'Noto Sans Zanabazar Square',
-sans-serif;
+    sans-serif;
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -47,6 +48,7 @@ code {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -60,6 +62,7 @@ code {
     flex-wrap: wrap;
     gap: 20px;
     margin: 20px;
+
     .square {
         width: 120px;
         height: 120px;
@@ -73,6 +76,7 @@ code {
         border: 2px solid #808080;
         transition: all 0.5s;
         position: relative;
+
         &.zana {
             span {
                 font-family: $zana;
@@ -80,20 +84,25 @@ code {
                 line-height: 40px;
             }
         }
+
         &.spin {
             animation: App-logo-spin infinite 20s linear;
+
             span {
                 animation: App-logo-spin infinite 20s linear;
                 animation-direction: reverse;
             }
         }
+
         &.spin-back {
             animation: App-logo-spin infinite 20s linear;
             animation-direction: reverse;
+
             span {
                 animation: App-logo-spin infinite 20s linear;
             }
         }
+
         &.egg {
             display: flex;
             justify-content: center;
@@ -102,10 +111,12 @@ code {
             height: 180px;
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
         }
+
         &.big {
             width: 250px;
             height: 250px;
         }
+
         &.small {
             width: 50px;
             height: 50px;
@@ -119,6 +130,7 @@ $red: crimson;
 $pink: pink;
 $yellow: darkorange;
 $green: greenyellow;
+
 button {
     display: inline-block;
     min-width: 120px;
@@ -136,6 +148,7 @@ button {
     border: 1px solid $gray;
     outline: none;
     cursor: pointer;
+
     &:after {
         content: '';
         position: absolute;
@@ -147,6 +160,7 @@ button {
         border-radius: 10rem;
         z-index: -2;
     }
+
     &:before {
         content: '';
         position: absolute;
@@ -159,57 +173,75 @@ button {
         border-radius: 10rem;
         z-index: -1;
     }
+
     &:hover {
         color: #fff;
+
         &:before {
             width: 100%;
         }
     }
+
     &.blue {
         border: 1px solid $blue;
+
         &:after {
             background-color: $blue;
         }
+
         &:before {
             background-color: darken($blue, 15%);
         }
     }
+
     &.red {
         border: 1px solid $red;
+
         &:after {
             background-color: $red;
         }
+
         &:before {
             background-color: darken($red, 15%);
         }
     }
+
     &.pink {
         border: 1px solid $pink;
+
         &:after {
             background-color: $pink;
         }
+
         &:before {
             background-color: darken($pink, 15%);
         }
     }
+
     &.yellow {
         border: 1px solid $yellow;
+
         &:after {
             background-color: $yellow;
         }
+
         &:before {
             background-color: darken($yellow, 15%);
         }
     }
+
     &.green {
         border: 1px solid $green;
+
         &:after {
             background-color: $green;
         }
+
         &:before {
             background-color: darken($green, 15%);
         }
     }
+
     &.small {
         padding: .7rem .7rem;
         border-radius: 10rem;
@@ -231,6 +263,7 @@ input {
     border-radius: 5px;
     color: white;
     margin: 5px;
+
     &[type=color] {
         width: 50px;
         height: 50px;
@@ -238,6 +271,7 @@ input {
         padding: 0;
         background-color: transparent;
     }
+
     &[type=range] {
         border: none;
         padding: 0;
@@ -273,7 +307,7 @@ label {
     margin: 5px;
 }
 
-[type=checkbox]:checked + label {
+[type=checkbox]:checked+label {
     background-color: skyblue;
 }
 
@@ -284,43 +318,51 @@ label {
 fieldset {
     border: 1px solid skyblue;
     margin: 10px;
+
     legend {
         color: white;
     }
+
     .field {
-     display: flex;
-     gap: 10px;
+        display: flex;
+        gap: 10px;
     }
 }
 
 
 
 .checkbox {
-        width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: gray;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 26px;
-        line-height: 26px;
-        font-family: $mono;
-        user-select: none;
-        transition: all 0.3s;
-        margin: 5px;
-        &.active {
-            background-color: skyblue;
-        }
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 26px;
+    line-height: 26px;
+    font-family: $mono;
+    user-select: none;
+    transition: all 0.3s;
+    margin: 5px;
+
+    &.active {
+        background-color: skyblue;
+    }
 }
 
 .select {
     cursor: pointer;
     transition: all 0.3s;
-    div {
-        &:hover {
-            color: skyblue;
+
+    .list {
+        overflow: hidden;
+        transition: height 0.3s;
+        div {
+            &:hover {
+                color: skyblue;
+            }
         }
     }
 
