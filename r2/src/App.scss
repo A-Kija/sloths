@@ -1,0 +1,28 @@
+.form-label {
+  color: orangered;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h3 {
+    margin: 0;
+    line-height: 1;
+  }
+}
+
+.icons-bin {
+  display: flex;
+  gap: 10;
+  .icon {
+    opacity: 0.1;
+    transition: all .3s;
+    border: 1px solid transparent;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+      border: 1px solid skyblue;
+    }
+    &.checked {
+      opacity: 1;
+    }
+  }
+}
