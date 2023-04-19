@@ -23,6 +23,8 @@ function App() {
   const [deleteData, setDeleteData] = useState(null);
   const [messages, setMessages] = useState([]);
 
+  const [sortAgeDir, setSortAgeDir] = useState('');
+
 
   useEffect(() => {
     setData(crudRead(key));
@@ -66,6 +68,10 @@ function App() {
     }, 5000);
   }
 
+  const ageSort = _ => {
+    
+  }
+
   return (
     <>
       <nav className="navbar navbar-light bg-light">
@@ -79,7 +85,7 @@ function App() {
             <Create setCreateData={setCreateData} />
           </div>
           <div className="col-8">
-            <List data={data} setEditModalData={setEditModalData} setDeleteModalData={setDeleteModalData} />
+            <List data={data} setEditModalData={setEditModalData} setDeleteModalData={setDeleteModalData} ageSort={ageSort} />
           </div>
         </div>
       </div>

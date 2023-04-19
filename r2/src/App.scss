@@ -85,3 +85,22 @@
     text-align: center;
   }
 }
+
+.sf-box {
+  padding: 12px;
+  background-color: skyblue;
+  color: white;
+  .sort {
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    &.up::after {
+      content: '\25B2';
+      padding: 0 5px;
+    }
+    &.down::after {
+      content: '\25BC';
+      padding: 0 5px;
+    }
+  }
+}

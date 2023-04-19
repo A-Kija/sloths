@@ -1,5 +1,5 @@
 import { fb, is, tt } from './Icons';
-export default function List({ data, setEditModalData, setDeleteModalData }) {
+export default function List({ data, setEditModalData, setDeleteModalData, ageSort }) {
 
 
     const doEdit = client => {
@@ -20,7 +20,13 @@ export default function List({ data, setEditModalData, setDeleteModalData }) {
 
     return (
         <div className="card mt-4">
-            <h5 className="card-header">Clients List</h5>
+            <div className="card-header">
+                <h5>Clients List</h5>
+                <div className="sf-box">
+                    <div className="sort" onClick={ageSort}>Age sort</div>
+                </div>
+            </div>
+
             <div className="card-body">
                 <ul className="list-group list-group-flush">
                     {
@@ -37,7 +43,7 @@ export default function List({ data, setEditModalData, setDeleteModalData }) {
                                 </div>
                                 <div className="buttons">
                                     <button className="yellow small" onClick={_ => doEdit(c)}>Edit</button>
-                                    <button className="red small" onClick={_=> doDelete(c)}>Delete</button>
+                                    <button className="red small" onClick={_ => doDelete(c)}>Delete</button>
                                 </div>
                             </div>
 
