@@ -71,7 +71,7 @@ export default function Create({setCreateData}) {
                     <div className="form-text">Please check client social network.</div>
                 </div>
 
-                <button type="button" className="btn btn-outline-warning" onClick={create}>CREATE</button>
+                <button type="button" className="blue small" onClick={create}>CREATE</button>
 
             </div>
         </div>

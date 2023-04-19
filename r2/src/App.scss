@@ -1,3 +1,5 @@
+@import 'buttons';
+
 .form-label {
   color: orangered;
   display: flex;
@@ -44,4 +46,9 @@
       font-size: 26px;
     }
   }
+}
+
+.modal {
+  display: block;
+  background-color: #00000080;
 }

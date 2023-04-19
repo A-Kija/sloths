@@ -25,9 +25,9 @@ export const crudCreate = (key, data) => {
 }
 
 export const crudUpdate = (key, data, id) => {
-    return read(key).map(d => d.id === id ? { ...d, ...data, id: d.id } : { ...d });
+    write(key, read(key).map(d => d.id === id ? { ...d, ...data, id: d.id } : { ...d }));
 }
 
 export const crudDelete = (key, id) => {
-    return read(key).filter(d => d.id !== id);
+    write(key, read(key).filter(d => d.id !== id));
 }
