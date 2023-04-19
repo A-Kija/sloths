@@ -3,9 +3,12 @@ import './App.scss';
 import Create from './Components/Create';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { crudCreate, crudRead, crudUpdate } from './Utils/localStorage';
+import { crudCreate, crudDelete, crudRead, crudUpdate } from './Utils/localStorage';
 import List from './Components/List';
 import Edit from './Components/Edit';
+import Delete from './Components/Delete';
+import Messages from './Components/Messages';
+import { v4 as uuidv4 } from 'uuid';
 
 const key = 'ClientsDb';
 
@@ -16,6 +19,9 @@ function App() {
   const [createData, setCreateData] = useState(null);
   const [editModalData, setEditModalData] = useState(null);
   const [editData, setEditData] = useState(null);
+  const [deleteModalData, setDeleteModalData] = useState(null);
+  const [deleteData, setDeleteData] = useState(null);
+  const [messages, setMessages] = useState([]);
 
 
   useEffect(() => {
@@ -29,6 +35,7 @@ function App() {
     }
     crudCreate(key, createData);
     setLastUpdateTime(Date.now());
+    msg('New client was created', 'ok');
   }, [createData]);
 
 
@@ -38,7 +45,26 @@ function App() {
     }
     crudUpdate(key, editData, editData.id);
     setLastUpdateTime(Date.now());
+    msg('Client was updated', 'ok');
   }, [editData]);
+
+
+  useEffect(() => {
+    if (null === deleteData) {
+      return;
+    }
+    crudDelete(key, deleteData.id);
+    setLastUpdateTime(Date.now());
+    msg('Client was removed', 'info');
+  }, [deleteData]);
+
+  const msg = (text, type) => {
+    const id = uuidv4();
+    setMessages(m => [...m, { text, type, id }])
+    setTimeout(() => {
+      setMessages(m => m.filter(m => m.id !== id));
+    }, 5000);
+  }
 
   return (
     <>
@@ -53,11 +79,13 @@ function App() {
             <Create setCreateData={setCreateData} />
           </div>
           <div className="col-8">
-            <List data={data} setEditModalData={setEditModalData}/>
+            <List data={data} setEditModalData={setEditModalData} setDeleteModalData={setDeleteModalData} />
           </div>
         </div>
       </div>
       <Edit editModalData={editModalData} setEditModalData={setEditModalData} setEditData={setEditData} />
+      <Delete deleteModalData={deleteModalData} setDeleteModalData={setDeleteModalData} setDeleteData={setDeleteData} />
+      <Messages messages={messages} />
     </>
   );
 }

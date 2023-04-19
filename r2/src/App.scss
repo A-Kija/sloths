@@ -48,7 +48,40 @@
   }
 }
 
+.msg-bin {
+  position: fixed;
+  bottom: 50px;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 777;
+  .msg {
+    padding: 20px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: white;
+    &.ok {
+      background-color: #52791870;
+      border-color: #527918;
+    }
+    &.info {
+      background-color: #87ceeb70;
+      border-color: #87ceeb;
+    }
+    &.error {
+      background-color: #dc143c70;
+      border-color: #dc143c;
+    }
+  }
+}
+
 .modal {
   display: block;
   background-color: #00000080;
+  z-index: 555;
+  h6 {
+    margin: 35px 0;
+    text-align: center;
+  }
 }

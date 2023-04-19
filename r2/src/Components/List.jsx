@@ -1,9 +1,13 @@
 import { fb, is, tt } from './Icons';
-export default function List({ data, setEditModalData }) {
+export default function List({ data, setEditModalData, setDeleteModalData }) {
 
 
     const doEdit = client => {
         setEditModalData(client);
+    }
+
+    const doDelete = client => {
+        setDeleteModalData(client);
     }
 
 
@@ -33,7 +37,7 @@ export default function List({ data, setEditModalData }) {
                                 </div>
                                 <div className="buttons">
                                     <button className="yellow small" onClick={_ => doEdit(c)}>Edit</button>
-                                    <button className="red small">Delete</button>
+                                    <button className="red small" onClick={_=> doDelete(c)}>Delete</button>
                                 </div>
                             </div>
 
