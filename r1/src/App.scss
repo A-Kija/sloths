@@ -263,6 +263,11 @@ input {
     border-radius: 5px;
     color: white;
     margin: 5px;
+    border: 3px dotted transparent;
+
+    &:focus {
+        border: 3px dotted white;
+    }
 
     &[type=color] {
         width: 50px;
