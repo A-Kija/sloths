@@ -1,5 +1,5 @@
 import { fb, is, tt } from './Icons';
-export default function List({ data, setEditModalData, setDeleteModalData, ageSort }) {
+export default function List({ socialFilter, filterSocialValue, sortAgeDir, data, setEditModalData, setDeleteModalData, ageSort }) {
 
 
     const doEdit = client => {
@@ -23,14 +23,28 @@ export default function List({ data, setEditModalData, setDeleteModalData, ageSo
             <div className="card-header">
                 <h5>Clients List</h5>
                 <div className="sf-box">
-                    <div className="sort" onClick={ageSort}>Age sort</div>
+                    <div className={'sort ' + sortAgeDir} onClick={ageSort}>Age sort</div>
+                    <div className="social-filter" onClick={socialFilter}>
+                        {
+                            filterSocialValue === 'fb' ? <div>{fb}</div> : null
+                        }
+                        {
+                            filterSocialValue === 'is' ? <div>{is}</div> : null
+                        }
+                        {
+                            filterSocialValue === 'tt' ? <div>{tt}</div> : null
+                        }
+                        {
+                            filterSocialValue === '' ? <div><h2>F</h2></div> : null
+                        }
+                    </div>
                 </div>
             </div>
 
             <div className="card-body">
                 <ul className="list-group list-group-flush">
                     {
-                        data.map(c => <li key={c.id} className="list-group-item">
+                        data.map(c => c.show ? <li key={c.id} className="list-group-item">
                             <div className="client-line">
                                 <div className="info">
                                     <div className="icon">
@@ -46,8 +60,7 @@ export default function List({ data, setEditModalData, setDeleteModalData, ageSo
                                     <button className="red small" onClick={_ => doDelete(c)}>Delete</button>
                                 </div>
                             </div>
-
-                        </li>)
+                        </li> : null)
                     }
                 </ul>
             </div>

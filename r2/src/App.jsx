@@ -24,10 +24,12 @@ function App() {
   const [messages, setMessages] = useState([]);
 
   const [sortAgeDir, setSortAgeDir] = useState('');
+  const [filterSocialValue, setFilterSocialValue] = useState('');
 
 
   useEffect(() => {
-    setData(crudRead(key));
+    setData(crudRead(key).map((c, i) => ({ ...c, row: i, show: true })));
+
   }, [lastUpdateTime]);
 
 
@@ -69,7 +71,39 @@ function App() {
   }
 
   const ageSort = _ => {
-    
+    switch (sortAgeDir) {
+      case '':
+        setSortAgeDir('up');
+        setData(d => [...d].sort((a, b) => a.age - b.age));
+        break;
+      case 'up':
+        setSortAgeDir('down');
+        setData(d => [...d].sort((a, b) => b.age - a.age));
+        break;
+      default:
+        setSortAgeDir('');
+        setData(d => [...d].sort((a, b) => a.row - b.row));
+    }
+  }
+
+  const socialFilter = _ => {
+    switch (filterSocialValue) {
+      case '':
+        setFilterSocialValue('fb');
+        setData(d => d.map(c => c.social === 'fb' ? {...c, show: true} : {...c, show: false}));
+        break;
+      case 'fb':
+        setFilterSocialValue('is');
+        setData(d => d.map(c => c.social === 'is' ? {...c, show: true} : {...c, show: false}));
+        break;
+      case 'is':
+        setFilterSocialValue('tt');
+        setData(d => d.map(c => c.social === 'tt' ? {...c, show: true} : {...c, show: false}));
+        break;
+      default:
+        setFilterSocialValue('');
+        setData(d => d.map(c => ({...c, show: true})));
+    }
   }
 
   return (
@@ -85,7 +119,7 @@ function App() {
             <Create setCreateData={setCreateData} />
           </div>
           <div className="col-8">
-            <List data={data} setEditModalData={setEditModalData} setDeleteModalData={setDeleteModalData} ageSort={ageSort} />
+            <List socialFilter={socialFilter} filterSocialValue={filterSocialValue} sortAgeDir={sortAgeDir} data={data} setEditModalData={setEditModalData} setDeleteModalData={setDeleteModalData} ageSort={ageSort} />
           </div>
         </div>
       </div>
