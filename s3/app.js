@@ -53,6 +53,23 @@ app.post('/clients', (req, res) => {
 });
 
 
+app.put('/clients/:id', (req, res) => {
+  
+  let data = fs.readFileSync('./Data/clients.json', 'utf8');
+  data = JSON.parse(data);
+
+  data = data.map(c => c.id === req.params.id ? {...c, ...req.body.client, id: req.params.id} : {...c});
+
+  data = JSON.stringify(data);
+  fs.writeFileSync('./Data/clients.json', data);
+
+  res.json({
+    message: ['Client was updated', 'ok']
+  });
+
+});
+
+
   app.delete('/clients/:id', (req, res) => {
  
     let data = fs.readFileSync('./Data/clients.json', 'utf8');

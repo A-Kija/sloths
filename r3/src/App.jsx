@@ -45,13 +45,11 @@ function App() {
     if (null === createData) {
       return;
     }
-
     axios.post(url, {client: createData})
     .then(res => {
       msg(...res.data.message);
       setLastUpdateTime(Date.now());
     });
-
   }, [createData]);
 
 
@@ -59,9 +57,11 @@ function App() {
     if (null === editData) {
       return;
     }
-    crudUpdate(key, editData, editData.id);
-    setLastUpdateTime(Date.now());
-    msg('Client was updated', 'ok');
+    axios.put(url + '/' + editData.id, {client: editData})
+    .then(res => {
+      msg(...res.data.message);
+      setLastUpdateTime(Date.now());
+    });
   }, [editData]);
 
 
@@ -69,13 +69,11 @@ function App() {
     if (null === deleteData) {
       return;
     }
-
     axios.delete(url + '/' + deleteData.id)
     .then(res => {
       msg(...res.data.message);
       setLastUpdateTime(Date.now());
     });
-    
   }, [deleteData]);
 
   useEffect(() => {
