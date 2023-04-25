@@ -9,11 +9,8 @@ import Edit from './Components/Edit';
 import Delete from './Components/Delete';
 import Messages from './Components/Messages';
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
 
 const key = 'ClientsDb';
-
-const url = 'http://localhost:3003/clients';
 
 function App() {
 
@@ -32,10 +29,7 @@ function App() {
 
 
   useEffect(() => {
-    axios.get(url)
-    .then(res => {
-      setData(res.data.clients.map((c, i) => ({ ...c, row: i, show: true })));
-    });
+    setData(crudRead(key).map((c, i) => ({ ...c, row: i, show: true })));
   }, [lastUpdateTime]);
 
 
@@ -45,13 +39,9 @@ function App() {
     if (null === createData) {
       return;
     }
-
-    axios.post(url, {client: createData})
-    .then(res => {
-      msg(...res.data.message);
-      setLastUpdateTime(Date.now());
-    });
-
+    crudCreate(key, createData);
+    setLastUpdateTime(Date.now());
+    msg('New client was created', 'ok');
   }, [createData]);
 
 
@@ -69,13 +59,9 @@ function App() {
     if (null === deleteData) {
       return;
     }
-
-    axios.delete(url + '/' + deleteData.id)
-    .then(res => {
-      msg(...res.data.message);
-      setLastUpdateTime(Date.now());
-    });
-    
+    crudDelete(key, deleteData.id);
+    setLastUpdateTime(Date.now());
+    msg('Client was removed', 'info');
   }, [deleteData]);
 
   useEffect(() => {

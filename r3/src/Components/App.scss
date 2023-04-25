@@ -1,0 +1,138 @@
+@import 'buttons';
+
+.form-label {
+  color: orangered;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h3 {
+    margin: 0;
+    line-height: 1;
+  }
+}
+
+.icons-bin {
+  display: flex;
+  gap: 10;
+  .icon {
+    opacity: 0.1;
+    transition: all .3s;
+    border: 1px solid transparent;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+      border: 1px solid skyblue;
+    }
+    &.checked {
+      opacity: 1;
+    }
+  }
+}
+
+.client-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .name {
+      padding: 0 10px;
+      font-size: 24px;
+    }
+    .age {
+      padding: 0 10px;
+      font-size: 26px;
+    }
+  }
+}
+
+.msg-bin {
+  position: fixed;
+  bottom: 50px;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 777;
+  .msg {
+    padding: 20px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: white;
+    &.ok {
+      background-color: #52791870;
+      border-color: #527918;
+    }
+    &.info {
+      background-color: #87ceeb70;
+      border-color: #87ceeb;
+    }
+    &.error {
+      background-color: #dc143c70;
+      border-color: #dc143c;
+    }
+  }
+}
+
+.modal {
+  display: block;
+  background-color: #00000080;
+  z-index: 555;
+  h6 {
+    margin: 35px 0;
+    text-align: center;
+  }
+}
+
+.sf-box {
+  padding: 12px;
+  background-color: skyblue;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .sort {
+    font-weight: bold;
+    text-transform: uppercase;
+    user-select: none;
+    cursor: pointer;
+    margin-right: 30px;
+    position: relative;
+    &.up::after {
+      content: '\25B2';
+      padding: 0 5px;
+      position: absolute;
+    }
+    &.down::after {
+      content: '\25BC';
+      padding: 0 5px;
+      position: absolute;
+    }
+  }
+  .social-filter {
+    div {
+      padding: 3px;
+      border: 1px solid white;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      svg {
+        width: 36px;
+        height: 36px;
+      }
+      h2 {
+        margin: 0;
+      }
+    }
+  }
+  .stats {
+    span {
+      padding-right: 17px;
+    }
+  }
+}
