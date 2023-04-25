@@ -125,4 +125,21 @@ button:not(.btn) {
         letter-spacing: .1rem;
         line-height: 1;
     }
+    &:disabled {
+        border: 1px solid $gray;
+
+        &:after {
+            background-color: $gray;
+        }
+
+        &:before {
+            background-color: darken($gray, 15%);
+        }
+        &:hover {
+    
+            &:before {
+                width: 0;
+            }
+        }
+    }
 }

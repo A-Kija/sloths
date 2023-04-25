@@ -3,7 +3,6 @@ import './App.scss';
 import Create from './Components/Create';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { crudCreate, crudDelete, crudRead, crudUpdate } from './Utils/localStorage';
 import List from './Components/List';
 import Edit from './Components/Edit';
 import Delete from './Components/Delete';
@@ -11,13 +10,11 @@ import Messages from './Components/Messages';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
-const key = 'ClientsDb';
-
 const url = 'http://localhost:3003/clients';
 
 function App() {
 
-  const [lastUpdateTime, setLastUpdateTime] = useState(Date.now());
+
   const [data, setData] = useState(null);
   const [createData, setCreateData] = useState(null);
   const [editModalData, setEditModalData] = useState(null);
@@ -33,10 +30,10 @@ function App() {
 
   useEffect(() => {
     axios.get(url)
-    .then(res => {
-      setData(res.data.clients.map((c, i) => ({ ...c, row: i, show: true })));
-    });
-  }, [lastUpdateTime]);
+      .then(res => {
+        setData(res.data.clients.map((c, i) => ({ ...c, row: i, show: true, pid: null })));
+      });
+  }, []);
 
 
 
@@ -45,10 +42,19 @@ function App() {
     if (null === createData) {
       return;
     }
-    axios.post(url, {client: createData})
+    const promiseId = uuidv4();
+    setData(c => [...c, {
+      ...createData,
+      show: true,
+      row: c.length - 1,
+      id: promiseId,
+      pid: promiseId
+    }]);
+    msg('New client was created', 'ok');
+
+    axios.post(url, {client: createData, promiseId})
     .then(res => {
-      msg(...res.data.message);
-      setLastUpdateTime(Date.now());
+      setData(c => c.map(c => c.pid === res.data.promiseId ? {...c, pid: null, id: res.data.id} : {...c}));
     });
   }, [createData]);
 
@@ -57,11 +63,15 @@ function App() {
     if (null === editData) {
       return;
     }
-    axios.put(url + '/' + editData.id, {client: editData})
-    .then(res => {
-      msg(...res.data.message);
-      setLastUpdateTime(Date.now());
-    });
+    const promiseId = uuidv4();
+
+    setData(c => c.map(d => d.id === editData.id ? {...d, ...editData, pid: promiseId} : {...d}))
+    msg('Client was updated', 'ok');
+
+    axios.put(url + '/' + editData.id, { client: editData, promiseId})
+      .then(res => {
+        setData(c => c.map(c => c.pid === res.data.promiseId ? {...c, pid: null} : {...c}));
+      });
   }, [editData]);
 
 
@@ -69,11 +79,13 @@ function App() {
     if (null === deleteData) {
       return;
     }
+    setData(c => c.filter(c => c.id !== deleteData.id));
+    msg('Client was removed', 'info');
+
     axios.delete(url + '/' + deleteData.id)
-    .then(res => {
-      msg(...res.data.message);
-      setLastUpdateTime(Date.now());
-    });
+      .then(res => {
+        //
+      });
   }, [deleteData]);
 
   useEffect(() => {

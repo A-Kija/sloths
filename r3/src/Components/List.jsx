@@ -50,6 +50,9 @@ export default function List({ stat, socialFilter, filterSocialValue, sortAgeDir
             </div>
 
             <div className="card-body">
+                {
+                    console.log(data)
+                }
                 <ul className="list-group list-group-flush">
                     {
                         data.map(c => c.show ? <li key={c.id} className="list-group-item">
@@ -64,8 +67,8 @@ export default function List({ stat, socialFilter, filterSocialValue, sortAgeDir
                                     <div className="age">{c.age}</div>
                                 </div>
                                 <div className="buttons">
-                                    <button className="yellow small" onClick={_ => doEdit(c)}>Edit</button>
-                                    <button className="red small" onClick={_ => doDelete(c)}>Delete</button>
+                                    <button className="yellow small" onClick={_ => doEdit(c)} disabled={!!c.pid}>Edit</button>
+                                    <button className="red small" onClick={_ => doDelete(c)} disabled={!!c.pid}>Delete</button>
                                 </div>
                             </div>
                         </li> : null)
