@@ -1,0 +1,80 @@
+.create-modal {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: #FFCB7750;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+
+    .create-modal-body {
+        border-radius: 10px;
+        background-color: white;
+        button {
+            cursor: pointer;
+            background-color: #227C9D;
+            border-radius: 5px;
+            border: none;
+            width: 200px;
+            height: 44px;
+            color: white;
+            user-select: none;
+            font-size: 30px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .create-modal-title {
+            padding: 30px;
+            background-color: #17C3B2;
+            box-sizing: border-box;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+
+            input {
+                width: 100%;
+                border: none;
+                border-bottom: 3px dashed #227C9D;
+                outline: none;
+                background-color: transparent;
+                font-size: 30px;
+            }
+        }
+
+        .create-modal-bottom {
+            padding: 30px;
+            background-color: #17C3B2;
+            box-sizing: border-box;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .create-modal-colors-bin {
+            display: flex;
+            flex-direction: column;
+
+            .create-modal-color-picker {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                padding: 20px;
+                input {
+                    width: 50px;
+                    height: 50px;
+                    cursor: pointer;
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    font-size: 30px;
+                    padding: 0;
+                }
+
+            }
+            // .create-modal-colors {}
+        }
+    }
+}
