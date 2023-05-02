@@ -5,14 +5,18 @@ import { Store } from '../Store';
 
 export default function CreateModal() {
 
-    const { showHideCreateModal, hideCreate, colors, addColor, addTitle } = useContext(Store);
+    const { showHideCreateModal, hideCreate, colors, addColor, addTitle, doCreate } = useContext(Store);
 
     const [title, setTitle] = useState('');
     const [color, setColor] = useState('#000000');
 
+    const done = _ => {
+        doCreate();
+    }
+
     useEffect(() => {
         addTitle(title);
-    }, [title]);
+    }, [title, addTitle]);
 
     const add = _ => {
         addColor(color);
@@ -44,7 +48,7 @@ export default function CreateModal() {
                     </div>
                 </div>
                 <div className="create-modal-bottom">
-                    <button>done</button>
+                    <button onClick={done}>done</button>
                     <button onClick={hideCreate}>cancel</button>
                 </div>
             </div>

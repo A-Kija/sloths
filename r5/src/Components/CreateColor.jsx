@@ -4,10 +4,10 @@ import { Store } from '../Store';
 
 export default function CreateColor({ color, title, id }) {
 
-    const { removeColor } = useContext(Store);
+    const { removeAddedColor } = useContext(Store);
 
     const remove = _ => {
-        removeColor(id)
+        removeAddedColor(id)
     }
 
     return (

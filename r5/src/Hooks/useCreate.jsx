@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
@@ -14,7 +14,16 @@ export default function useCreate() {
     const showCreate = _ => setShow(true);
     const hideCreate = _ => setShow(false);
 
-    const addTitle = t => setTitle(t);
+    const addTitle = useCallback(t => setTitle(t), [setTitle]);
+
+
+    const doCreate = _ => {
+        const color = {
+            title,
+            colors
+        }
+        // createAddCrud(color);
+    }
 
 
     const addColor = hex => {
@@ -37,5 +46,5 @@ export default function useCreate() {
 
 
 
-    return [show, showCreate, hideCreate, colors, addColor, removeColor, addTitle];
+    return [show, showCreate, hideCreate, colors, addColor, removeColor, addTitle, doCreate];
 }

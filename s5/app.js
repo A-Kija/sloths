@@ -13,6 +13,24 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
+
+app.post('/colors', (req, res) => {
+  
+  let data = fs.readFileSync('./Data/color.json', 'utf8');
+  const id = uuidv4();
+  const color = {...req.body.color, id};
+  data = JSON.parse(data);
+  data.push(color);
+  data = JSON.stringify(data);
+  fs.writeFileSync('./Data/color.json', data);
+
+  res.json({
+    message: ['New color added', 'ok'],
+  });
+
+});
+
+
 // app.get('/', (req, res) => {
 //   res.send(`<h1>${req.query.hello}, ${req.query.who} !</h1>`);
 // });
