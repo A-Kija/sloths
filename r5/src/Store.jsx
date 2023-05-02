@@ -7,12 +7,14 @@ export const Store = createContext();
 export const Data = ({children}) => {
 
 
-    const [showHideCreateModal, showCreate, hideCreate] = useCreate();
+    const [showHideCreateModal, showCreate, hideCreate, colors, addColor, removeColor, addTitle] = useCreate();
 
 
     return (
         <Store.Provider value={{
-            showHideCreateModal, showCreate, hideCreate
+            showHideCreateModal, showCreate, hideCreate, 
+            colors, addColor, removeColor,
+            addTitle
         }}>
             {children}
         </Store.Provider>
