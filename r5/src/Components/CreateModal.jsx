@@ -12,6 +12,8 @@ export default function CreateModal() {
 
     const done = _ => {
         doCreate();
+        setTitle('');
+        setColor('#000000');
     }
 
     useEffect(() => {

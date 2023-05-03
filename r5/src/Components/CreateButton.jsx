@@ -11,5 +11,4 @@ export default function CreateButton() {
             Add New
         </div>
     );
-
 }

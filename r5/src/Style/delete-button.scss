@@ -1,15 +1,13 @@
-.create-button {
-    position: fixed;
-    top: 50px;
-    right: 50px;
+.delete-button {
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: #227C9D;
+    background-color: #FE6D73;
     border-radius: 5px;
-    width: 200px;
-    height: 100px;
+    width: 100px;
+    height: 70px;
     color: white;
     user-select: none;
+    font-size: 22px;
 }
