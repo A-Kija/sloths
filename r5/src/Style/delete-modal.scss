@@ -1,4 +1,4 @@
-.create-modal {
+.delete-modal {
     position: fixed;
     width: 100%;
     height: 100vh;
@@ -9,12 +9,13 @@
     z-index: 99;
     top: 0;
     left: 0;
-    .create-modal-body {
+    transition: all 2s;
+    .delete-modal-body {
         border-radius: 10px;
         background-color: white;
         button {
             cursor: pointer;
-            background-color: #227C9D;
+            background-color: #FE6D73;
             border-radius: 5px;
             border: none;
             width: 200px;
@@ -25,22 +26,14 @@
             letter-spacing: 5px;
             text-transform: uppercase;
         }
-        .create-modal-title {
+        .delete-modal-title {
             padding: 30px;
             background-color: #17C3B2;
             box-sizing: border-box;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
-            input {
-                width: 100%;
-                border: none;
-                border-bottom: 3px dashed #227C9D;
-                outline: none;
-                background-color: transparent;
-                font-size: 30px;
-            }
         }
-        .create-modal-bottom {
+        .delete-modal-bottom {
             padding: 30px;
             background-color: #17C3B2;
             box-sizing: border-box;
@@ -50,10 +43,10 @@
             justify-content: center;
             gap: 10px;
         }
-        .create-modal-colors-bin {
+        .delete-modal-colors-bin {
             display: flex;
             flex-direction: column;
-            .create-modal-color-picker {
+            .delete-modal-color-picker {
                 display: flex;
                 align-items: center;
                 justify-content: space-evenly;
@@ -69,7 +62,7 @@
                     padding: 0;
                 }
             }
-            .create-modal-colors {
+            .delete-modal-colors {
                 display: flex;
                 flex-direction: column;
                 gap: 5px;

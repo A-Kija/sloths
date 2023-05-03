@@ -6,7 +6,7 @@ export default function ListItem({ color }) {
         <div className="item">
             <div className="header">
                 <h2>{color.title}</h2>
-                <DeleteButton colorId={c.id} />
+                <DeleteButton colorId={color.id} />
             </div>
             <div className="colors">
                 {

@@ -10,8 +10,14 @@ export default function useCRUD() {
     const [readData, setReadData] = useState(null);
     const [deleteData, setDeleteData] = useState(null);
 
+    const [lastUpdate, setLastUpdate] = useState(Date.now());
+
     const crudCreate = data => {
         setCreateData(data);
+    }
+
+    const crudDelete = data => {
+        setDeleteData(data);
     }
 
     useEffect(() => {
@@ -21,7 +27,7 @@ export default function useCRUD() {
             setReadData(res.data.colors);
         })
 
-    }, []);
+    }, [lastUpdate]);
 
 
     useEffect(() => {
@@ -30,6 +36,7 @@ export default function useCRUD() {
         }
         axios.post(SERVER_URL, {color:createData})
         .then(res => {
+            setLastUpdate(Date.now());
             console.log(res.data);
         });
     }, [createData]);
@@ -42,11 +49,12 @@ export default function useCRUD() {
         axios.delete(SERVER_URL + '/' + deleteData.id)
         .then(res => {
             console.log(res.data);
+            setLastUpdate(Date.now());
         });
     }, [deleteData]);
 
 
 
 
-    return [crudCreate, readData, deleteData];
+    return [crudCreate, readData, crudDelete];
 }
