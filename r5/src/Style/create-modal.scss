@@ -1,3 +1,4 @@
+@import './variables.module.scss';
 .create-modal {
     position: fixed;
     width: 100%;
@@ -9,6 +10,7 @@
     z-index: 99;
     top: 0;
     left: 0;
+    transition: all $animation;
     .create-modal-body {
         border-radius: 10px;
         background-color: white;

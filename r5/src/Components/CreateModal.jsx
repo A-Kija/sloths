@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import '../Style/create-modal.scss';
 import CreateColor from './CreateColor';
 import { Store } from '../Store';
+import variables from '../Style/variables.module.scss';
 
 export default function CreateModal() {
 
@@ -9,6 +10,8 @@ export default function CreateModal() {
 
     const [title, setTitle] = useState('');
     const [color, setColor] = useState('#000000');
+    const [opacity, setOpacity] = useState(0);
+    const [show, setShow] = useState(null);
 
     const done = _ => {
         doCreate();
@@ -25,13 +28,29 @@ export default function CreateModal() {
         setColor('#000000');
     }
 
-    if (!showHideCreateModal) {
+    useEffect(() => {
+        if (null === show) {
+            setShow(false);
+            return;
+        }
+
+        if (showHideCreateModal === true) {
+            setShow(true);
+            setTimeout(_ => setOpacity(1), 50); // fake wait while css apply
+        } else {
+            setOpacity(0);
+            setTimeout(_ => setShow(false), parseInt(variables.animationTime));
+        }
+
+    }, [showHideCreateModal]);
+
+    if (!show) {
         return null;
     }
 
 
     return (
-        <div className="create-modal">
+        <div className="create-modal" style={{opacity}}>
             <div className="create-modal-body">
                 <div className="create-modal-title">
                     <input type="text" value={title} onChange={e => setTitle(e.target.value)} />

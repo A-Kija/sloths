@@ -1,34 +1,36 @@
 import { useContext, useEffect, useState } from 'react';
 import '../Style/delete-modal.scss';
 import { Store } from '../Store';
+import variables from '../Style/variables.module.scss';
 
 export default function DeleteModal() {
 
     const [opacity, setOpacity] = useState(0);
-    const [show, setShow] = useState(0);
+    const [show, setShow] = useState(null);
 
 
     const { showHideDeleteModal, hideDelete, doDelete } = useContext(Store);
 
     useEffect(() => {
-
-        setOpacity(showHideDeleteModal ? 1 : 0);
+        if (null === show) {
+            setShow(false);
+            return;
+        }
 
         if (showHideDeleteModal === true) {
             setShow(true);
+            setTimeout(_ => setOpacity(1), 50); // fake wait while css apply
         } else {
-            // setTimeout(_ => setShow(false), 2000);
-            setShow(false);
+            setOpacity(0);
+            setTimeout(_ => setShow(false), parseInt(variables.animationTime));
         }
 
-    }, [showHideDeleteModal])
+    }, [showHideDeleteModal]);
 
 
     if (!show) {
         return null;
     }
-
-
 
 
     return (
