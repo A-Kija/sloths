@@ -12,10 +12,10 @@ export default function DeleteModal() {
     const { showHideDeleteModal, hideDelete, doDelete } = useContext(Store);
 
     useEffect(() => {
-        if (null === show) {
-            setShow(false);
-            return;
-        }
+        // if (null === show) {
+        //     setShow(false);
+        //     return;
+        // }
 
         if (showHideDeleteModal === true) {
             setShow(true);

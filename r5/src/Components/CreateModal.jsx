@@ -29,10 +29,10 @@ export default function CreateModal() {
     }
 
     useEffect(() => {
-        if (null === show) {
-            setShow(false);
-            return;
-        }
+        // if (null === show) {
+        //     setShow(false);
+        //     return;
+        // }
 
         if (showHideCreateModal === true) {
             setShow(true);
@@ -64,7 +64,7 @@ export default function CreateModal() {
                         {
                             colors === null 
                             ? <h3>No colors</h3>
-                            : colors.map(c => <CreateColor key={c.id} id={c.id} color={c.color} title={c.title} />)
+                            : colors.map(c => <CreateColor key={c.id} id={c.id} color={c.color} title={c.title}  parent="create"/>)
                         }
                     </div>
                 </div>

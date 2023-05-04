@@ -13,9 +13,9 @@ export const Data = ({children}) => {
     const [showHideCreateModal, showCreate, hideCreate, colors, addColor, removeAddedColor, addTitle, doCreate, createColor] = useCreate();
     const [showHideDeleteModal, showDelete, hideDelete, deleteColor, doDelete, setModalDeleteId] = useDelete();
 
-    const [showHideEditModal, showEdit, hideEdit, setModalEditData] = useEdit();
+    const [showHideEditModal, showEdit, hideEdit, setModalEditData, oldData, editColors, editTitle, addEColor, removeEditededColor, doEdit, editColor] = useEdit();
     
-    const [crudCreate, readData, crudDelete] = useCRUD();
+    const [crudCreate, readData, crudDelete, crudEdit] = useCRUD();
 
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export const Data = ({children}) => {
             return;
         }
         crudCreate(createColor);
-    }, [createColor]);
+    }, [createColor, crudCreate]);
 
 
     useEffect(() => {
@@ -31,14 +31,22 @@ export const Data = ({children}) => {
             return;
         }
         crudDelete(deleteColor);
-    }, [deleteColor]);
+    }, [deleteColor, crudDelete]);
+
+
+    useEffect(() => {
+        if (null === editColor) {
+            return;
+        }
+        crudEdit(editColor);
+    }, [editColor, crudEdit]);
 
 
 
 
     return (
         <Store.Provider value={{
-            showEdit, setModalEditData, showHideEditModal,
+            showEdit, setModalEditData, showHideEditModal, hideEdit, oldData, editColors, editTitle, addEColor, removeEditededColor, doEdit,
 
             showHideCreateModal, showCreate, hideCreate,
             showHideDeleteModal, showDelete, hideDelete, doDelete, setModalDeleteId,

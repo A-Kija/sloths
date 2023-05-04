@@ -11,34 +11,41 @@ export default function useEdit() {
 
     const [colors, setColors] = useState(null);
     const [title, setTitle] = useState('');
+    const [id, setId] = useState(0);
+    const [oldData, setOldData] = useState(null);
 
-    
+
     const [color, setColor] = useState(null)
 
 
     const showEdit = _ => setShow(true);
     const hideEdit = _ => setShow(false);
 
-    const addTitle = useCallback(t => setTitle(t), [setTitle]);
+    const editTitle = useCallback(t => setTitle(t), [setTitle]);
 
-    const setModalEditData = data => {}
+    const setModalEditData = data => {
+        setOldData(data); 
+        setColors(data.colors);
+        setId(data.id)
+    }
 
 
-    const doCreate = _ => {
+    const doEdit = _ => {
         const color = {
             title,
-            colors
+            colors, 
+            id
         }
         setColor(color);
         setShow(false);
         setTitle('');
         setColors(null);
-        
+        setId(0);
     }
 
 
 
-    const addColor = hex => {
+    const addEColor = hex => {
         const id = uuidv4();
         axios.get(API_URL + hex.substring(1))
         .then(res => {
@@ -48,7 +55,7 @@ export default function useEdit() {
         setColors(c => [...c ?? [], {id, color: hex}]);
     }
 
-    const removeColor = id => {
+    const removeEColor = id => {
         setColors(c => {
             const colors = c.filter(c => c.id !== id);
             return colors.length ? colors : null;
@@ -60,5 +67,5 @@ export default function useEdit() {
 
     // return [show, showCreate, hideCreate, colors, addColor, removeColor, addTitle, doCreate, color];
 
-    return [show, showEdit, hideEdit, setModalEditData];
+    return [show, showEdit, hideEdit, setModalEditData, oldData, colors, editTitle, addEColor, removeEColor, doEdit, color];
 }

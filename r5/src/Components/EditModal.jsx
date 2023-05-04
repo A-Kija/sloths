@@ -6,34 +6,44 @@ import variables from '../Style/variables.module.scss';
 
 export default function EditModal() {
 
-    const { showHideEditModal, hideEdit, colors, addColor, addTitle, doCreate } = useContext(Store);
+    const { showHideEditModal, hideEdit, oldData, editColors, editTitle, addEColor, doEdit } = useContext(Store);
 
     const [title, setTitle] = useState('');
     const [color, setColor] = useState('#000000');
     const [opacity, setOpacity] = useState(0);
     const [show, setShow] = useState(null);
 
+    
 
     const done = _ => {
-        doCreate();
+        doEdit();
         setTitle('');
         setColor('#000000');
     }
 
     useEffect(() => {
-        addTitle(title);
-    }, [title, addTitle]);
+        if (null === oldData) {
+            return;
+        }
+        setTitle(oldData.title);
+
+
+    }, [oldData]);
+
+    useEffect(() => {
+        editTitle(title);
+    }, [title, editTitle]);
 
     const add = _ => {
-        addColor(color);
+        addEColor(color);
         setColor('#000000');
     }
 
     useEffect(() => {
-        if (null === show) {
-            setShow(false);
-            return;
-        }
+        // if (null === show) {
+        //     setShow(false);
+        //     return;
+        // }
 
         if (showHideEditModal === true) {
             setShow(true);
@@ -63,9 +73,9 @@ export default function EditModal() {
                     </div>
                     <div className="create-modal-colors">
                         {
-                            colors === null 
+                            editColors === null 
                             ? <h3>No colors</h3>
-                            : colors.map(c => <CreateColor key={c.id} id={c.id} color={c.color} title={c.title} />)
+                            : editColors.map(c => <CreateColor key={c.id} id={c.id} color={c.color} title={c.title} parent="edit" />)
                         }
                     </div>
                 </div>
