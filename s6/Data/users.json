@@ -1,0 +1,16 @@
+[{
+        "email": "briedis@gmail.com",
+        "pass": "202cb962ac59075b964b07152d234b70",
+        "role": "admin"
+    },
+    {
+        "email": "bebras@gmail.com",
+        "pass": "202cb962ac59075b964b07152d234b70",
+        "role": "user"
+    },
+    {
+        "email": "barsumas@gmail.com",
+        "pass": "202cb962ac59075b964b07152d234b70",
+        "role": "user"
+    }
+]
