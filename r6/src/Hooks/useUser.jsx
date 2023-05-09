@@ -1,35 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function useUser() {
 
     const [user, setUser] = useState(null);
 
+    useEffect(() => {
+        const lsUser = localStorage.getItem('r6User');
+        if (null === lsUser) {
+            return null;
+        }
+        setUser(JSON.parse(lsUser));
+    }, [setUser]);
+
     const _validateUser = data => {
         return {
-            pass: data.color || '',
+            color: data.color || '',
             email: data.email || '',
-            role: data.role || ''
+            role: data.role || '',
+            id: data.id || ''
         }
     }
 
     const _setUser = data => {
-        setUser(_validateUser(data));
-        localStorage.setItem('r6User', JSON.stringify(_validateUser(data)));
-    }
-
-    const _getUser = _ => {
-        if (null === user) {
-            const lsUser = localStorage.getItem('r6User');
-            if (null === lsUser) {
-                return null;
-            }
-            _setUser(JSON.parse(lsUser));
-            return _validateUser(JSON.parse(lsUser));
+        if (null === data) {
+            setUser(null);
+            localStorage.removeItem('r6User');
+        } else {
+            setUser(_validateUser(data));
+            localStorage.setItem('r6User', JSON.stringify(_validateUser(data)));
         }
+
     }
 
 
-    return [_getUser, _setUser];
+
+
+    return [user, _setUser];
 
 
 }

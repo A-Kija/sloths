@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const LOGIN_URL = 'http://localhost:3003/login';
+const LOGOUT_URL = 'http://localhost:3003/logout';
 
 export default function usePageLogin() {
 
@@ -9,21 +10,37 @@ export default function usePageLogin() {
     const [responseData, setResponseData] = useState(null);
 
     const _setRequestData = data => {
-        const validated = {
-            pass: data.pass || '',
-            email: data.email || ''
+
+        let validated;
+        if (data.action === 'login') {
+            validated = {
+                pass: data.pass || '',
+                email: data.email || ''
+            }
+        } else if (data.action === 'logout') {
+            validated = {
+                id: data.id || 0,
+            }
         }
-        setRequestData(validated);
+        setRequestData({ validated, action: data.action });
     }
 
     useEffect(() => {
         if (null === requestData) {
             return;
         }
-        axios.post(LOGIN_URL, requestData)
-            .then(res => {
-                setResponseData(res.data)
-            })
+        if (requestData.action === 'login') {
+            axios.post(LOGIN_URL, requestData.validated)
+                .then(res => {
+                    setResponseData(res.data)
+                })
+        }
+        else if (requestData.action === 'logout') {
+            axios.post(LOGOUT_URL + '/' + requestData.validated.id)
+                .then(res => {
+                    setResponseData(res.data)
+                })
+        }
 
     }, [requestData]);
 

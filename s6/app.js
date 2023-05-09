@@ -34,7 +34,7 @@ app.post('/login', (req, res) => {
     if (user) {
         res.json({
             status: 'login-ok',
-            user: { email: user.email, color: user.color, role: user.role },
+            user: { email: user.email, color: user.color, role: user.role, id: user.id },
             message: ['Login is ok', 'ok'],
         });
     } else {
@@ -42,9 +42,15 @@ app.post('/login', (req, res) => {
             message: ['Invalid login', 'error'],
         });
     }
+});
+
+app.post('/logout/:id', (req, res) => {
 
 
-
+    res.json({
+        status: 'logout-ok',
+        message: ['Logout is ok', 'ok'],
+    });
 });
 
 

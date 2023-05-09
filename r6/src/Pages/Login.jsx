@@ -9,6 +9,7 @@ export default function Login() {
 
     const doLogin = _ => {
         setLoginRequest({
+            action: 'login',
             email,
             pass
         });

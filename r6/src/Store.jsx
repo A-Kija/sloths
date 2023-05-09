@@ -10,7 +10,7 @@ export const Data = ({children}) => {
 
     const [displayPage, goToPage, pageSlug] = useRoute();
     const [loginResponse, setLoginRequest] = usePageLogin();
-    const [getUser, setUser] = useUser();
+    const [user, setUser] = useUser();
 
 
     useEffect(() => {
@@ -23,6 +23,11 @@ export const Data = ({children}) => {
             goToPage('home');
         }
 
+        if (loginResponse?.status === 'logout-ok') {
+            setUser(null);
+            goToPage('home');
+        }
+
     }, [loginResponse])
 
 
@@ -30,7 +35,8 @@ export const Data = ({children}) => {
     return (
         <Store.Provider value={{
             displayPage, goToPage, pageSlug,
-            setLoginRequest
+            setLoginRequest,
+            user
         }}>
             {children}
         </Store.Provider>

@@ -6,11 +6,37 @@ body {
 }
 
 .nav {
+    .nav-item {
+        margin-top: 10px;
+    }
     a {
         font-size: 26px;
         letter-spacing: 3px;
         &.active {
             color: crimson;
+        }
+    }
+    .user {
+        padding: 10px;
+        a {
+            font-size: 20px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            color: white;
+        }
+        .user-logged {
+            padding: 10px;
+            span {
+                color: white;
+                padding: 0 5px;
+            }
+            a {
+                cursor: pointer;
+            }
+        }
+        .user-not-logged {
+            padding: 10px;
+            background-color: skyblue;
         }
     }
 }
