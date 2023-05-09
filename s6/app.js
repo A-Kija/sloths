@@ -33,6 +33,8 @@ app.post('/login', (req, res) => {
 
     if (user) {
         res.json({
+            status: 'login-ok',
+            user: { email: user.email, color: user.color, role: user.role },
             message: ['Login is ok', 'ok'],
         });
     } else {

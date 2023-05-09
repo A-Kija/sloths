@@ -1,9 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { Store } from '../Store';
 
 export default function Login() {
 
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const { setLoginRequest } = useContext(Store);
+
+    const doLogin = _ => {
+        setLoginRequest({
+            email,
+            pass
+        });
+        // setEmail('');
+        // setPass('');
+    }
 
     return (
 
@@ -21,13 +32,13 @@ export default function Login() {
                             <div className="mb-3">
                                 <label className="form-label">Email address</label>
                                 <input type="email" className="form-control" value={email} onChange={e => setEmail(e.target.value)} />
-                                    <div className="form-text">We'll never share your email with anyone else.</div>
+                                <div className="form-text">We'll never share your email with anyone else.</div>
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Password</label>
                                 <input type="password" className="form-control" value={pass} onChange={e => setPass(e.target.value)} />
                             </div>
-                            <button type="button" className="red">Login</button>
+                            <button type="button" className="red" onClick={doLogin}>Login</button>
                         </div>
                     </div>
                 </div>

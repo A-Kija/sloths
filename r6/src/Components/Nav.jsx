@@ -1,4 +1,5 @@
-import Link from "./Link";
+import Link from './Link';
+import User from './User';
 
 export default function Nav() {
 
@@ -11,10 +12,10 @@ export default function Nav() {
                 <Link className="nav-link" to="profile">My Profile</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="login">Login</Link>
-            </li>
-            <li className="nav-item">
                 <Link className="nav-link" to="admin">Admin Dashbord</Link>
+            </li>
+            <li>
+                <User />
             </li>
         </ul>
     )

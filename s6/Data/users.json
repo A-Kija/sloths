@@ -1,16 +1,19 @@
 [{
         "email": "briedis@gmail.com",
         "pass": "202cb962ac59075b964b07152d234b70",
-        "role": "admin"
+        "role": "admin",
+        "color": "crimson"
     },
     {
         "email": "bebras@gmail.com",
         "pass": "202cb962ac59075b964b07152d234b70",
-        "role": "user"
+        "role": "user",
+        "color": "skyblue"
     },
     {
-        "email": "barsumas@gmail.com",
+        "email": "barsuke@gmail.com",
         "pass": "202cb962ac59075b964b07152d234b70",
-        "role": "user"
+        "role": "user",
+        "color": "pink"
     }
 ]
