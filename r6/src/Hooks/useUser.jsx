@@ -7,7 +7,7 @@ export default function useUser() {
     useEffect(() => {
         const lsUser = localStorage.getItem('r6User');
         if (null === lsUser) {
-            return null;
+            return;
         }
         setUser(JSON.parse(lsUser));
     }, [setUser]);

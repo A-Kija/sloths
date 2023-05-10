@@ -30,13 +30,13 @@ export default function usePageLogin() {
             return;
         }
         if (requestData.action === 'login') {
-            axios.post(LOGIN_URL, requestData.validated)
+            axios.post(LOGIN_URL, requestData.validated, {withCredentials: true})
                 .then(res => {
                     setResponseData(res.data)
                 })
         }
         else if (requestData.action === 'logout') {
-            axios.post(LOGOUT_URL + '/' + requestData.validated.id)
+            axios.post(LOGOUT_URL + '/' + requestData.validated.id, {}, {withCredentials: true})
                 .then(res => {
                     setResponseData(res.data)
                 })
