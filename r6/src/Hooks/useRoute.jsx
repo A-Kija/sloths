@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Home from '../Pages/Home';
 import Error from '../Pages/Error';
 import Admin from '../Pages/Admin';
@@ -10,7 +10,7 @@ export default function useRoute() {
     const [displayPage, setDisplayPage] = useState(<Home/>);
     const [pageSlug, setPageSlug] = useState('home');
 
-    const goToPage = page => {
+    const goToPage = useCallback(page => {
 
         switch(page) {
             case 'home': setDisplayPage(<Home/>);
@@ -26,6 +26,8 @@ export default function useRoute() {
             default: setDisplayPage(<Error/>);
         }
         setPageSlug(page);
-    }
+    }, []);
+
+
     return [displayPage, goToPage, pageSlug];
 }

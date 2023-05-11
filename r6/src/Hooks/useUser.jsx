@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function useUser() {
 
@@ -21,7 +21,7 @@ export default function useUser() {
         }
     }
 
-    const _setUser = data => {
+    const _setUser = useCallback(data => {
         if (null === data) {
             setUser(null);
             localStorage.removeItem('r6User');
@@ -30,7 +30,7 @@ export default function useUser() {
             localStorage.setItem('r6User', JSON.stringify(_validateUser(data)));
         }
 
-    }
+    }, [setUser]);
 
 
 

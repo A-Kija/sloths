@@ -38,15 +38,12 @@ export const Data = ({children}) => {
             addMessage(loginResponse.message);
         }
 
-
-
-
         if (loginResponse?.status === 'logout-ok') {
             setUser(null);
             goToPage('home');
         }
 
-    }, [loginResponse]);
+    }, [loginResponse, goToPage, addMessage, setUser]);
 
     // ADMIN PAGE
     useEffect(() => {
@@ -63,19 +60,18 @@ export const Data = ({children}) => {
                 goToPage('error');
             }
         }
-    }, [adminResponse]);
+    }, [adminResponse, goToPage]);
 
 
 
     useEffect(() => {
         switch(pageSlug) {
             case 'admin': adminLoad()
-
+            break;
             default:
         }
 
-    }, [pageSlug])
-
+    }, [pageSlug, adminLoad])
 
 
     return (
