@@ -3,6 +3,7 @@ import useRoute from './Hooks/useRoute';
 import usePageLogin from './Hooks/usePageLogin';
 import useUser from './Hooks/useUser';
 import usePageAdmin from './Hooks/usePageAdmin';
+import useMessages from './Hooks/useMessages';
 
 export const Store = createContext();
 
@@ -10,13 +11,18 @@ export const Store = createContext();
 export const Data = ({children}) => {
 
     const [displayPage, goToPage, pageSlug] = useRoute();
-    const [loginResponse, setLoginRequest] = usePageLogin();
     const [user, setUser] = useUser();
+    const [messages, addMessage] = useMessages();
+
+
+    const [loginResponse, setLoginRequest] = usePageLogin();
     const [adminResponse, adminLoad] = usePageAdmin();
 
     const [adminPageData, setAdminPageData] = useState(null);
 
+    
 
+    // Login PAGE
     useEffect(() => {
         if (null === loginResponse) {
             return;
@@ -24,8 +30,16 @@ export const Data = ({children}) => {
 
         if (loginResponse?.status === 'login-ok') {
             setUser(loginResponse.user);
+            addMessage(loginResponse.message);
             goToPage('home');
         }
+
+        if (loginResponse?.status === 'error') {
+            addMessage(loginResponse.message);
+        }
+
+
+
 
         if (loginResponse?.status === 'logout-ok') {
             setUser(null);
@@ -41,8 +55,14 @@ export const Data = ({children}) => {
         }
         if (adminResponse.status === 'ok') {
             setAdminPageData(adminResponse.data)
+        } else {
+           
+            if (adminResponse.response.status === 401) {
+                goToPage(401);
+            } else {
+                goToPage('error');
+            }
         }
-        
     }, [adminResponse]);
 
 
@@ -62,7 +82,7 @@ export const Data = ({children}) => {
         <Store.Provider value={{
             displayPage, goToPage, pageSlug,
             setLoginRequest,
-            user,
+            user, messages,
 
             //pages info
             adminPageData,

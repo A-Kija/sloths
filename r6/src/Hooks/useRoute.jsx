@@ -7,7 +7,6 @@ import Profile from '../Pages/Profile';
 
 export default function useRoute() {
 
-
     const [displayPage, setDisplayPage] = useState(<Home/>);
     const [pageSlug, setPageSlug] = useState('home');
 
@@ -22,16 +21,11 @@ export default function useRoute() {
             break;
             case 'profile': setDisplayPage(<Profile/>);
             break;
+            case 401: setDisplayPage(<Error error={401}/>);
+            break;
             default: setDisplayPage(<Error/>);
         }
         setPageSlug(page);
-
-        
     }
-
-
-
     return [displayPage, goToPage, pageSlug];
-
-
 }
