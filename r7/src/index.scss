@@ -13,3 +13,33 @@ body {
 .color-gray {
     color: $gray;
 }
+
+.color-green {
+    color: $green;
+}
+
+.list-item {
+    padding: 10px;
+    margin: 10px;
+    background-color: lighten($yellow, 10%);
+    input {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        &.title {
+            font-size: 26px;
+        }
+        &.height {
+            font-size: 20px;
+            width: 70px;
+        }
+    }
+    select {
+        background-color: lighten($yellow, 10%);
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 20px;
+    }
+}
