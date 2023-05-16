@@ -1,5 +1,6 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 import useTrees from './Hooks/useTrees';
+import useTypes from './Hooks/useTypes';
 
 export const Data = createContext();
 
@@ -11,15 +12,17 @@ const treeTypes = [
 
 export const  DataProvider = ({children}) => {
 
-    const [trees, setCreateTrees, setEditTrees, setSeleteTrees] = useTrees();
-
+    const [trees, setCreateTrees, setEditTrees, setDeleteTrees] = useTrees();
+    const [types, setCreateTypes, setEditTypes, setDeleteTypes] = useTypes();
+    const [tab, setTab] = useState('trees')
 
     return (
         <Data.Provider value={{
             treeTypes,
 
-
-            trees, setCreateTrees, setEditTrees, setSeleteTrees
+            tab, setTab,
+            trees, setCreateTrees, setEditTrees, setDeleteTrees,
+            types, setCreateTypes, setEditTypes, setDeleteTypes
         }}>
             {children}
         </Data.Provider>

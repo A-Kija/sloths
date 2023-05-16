@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const URL = 'http://localhost:3003/trees'
+const URL = 'http://localhost:3003/types'
 
-export default function useTrees() {
+export default function useTypes() {
 
-    const [trees, setTrees] = useState(null);
-    const [createTrees, setCreateTrees] = useState(null);
-    const [editTrees, setEditTrees] = useState(null);
-    const [deleteTrees, setDeleteTrees] = useState(null);
+    const [types, setTypes] = useState(null);
+    const [createTypes, setCreateTypes] = useState(null);
+    const [editTypes, setEditTypes] = useState(null);
+    const [deleteTypes, setDeleteTypes] = useState(null);
 
     const [lastUpdate, setLastUpdate] = useState(Date.now());
 
@@ -17,49 +17,49 @@ export default function useTrees() {
         axios.get(URL)
         .then(res => {
             console.log(res.data.result)
-            setTrees(res.data.result);
+            setTypes(res.data.result);
         });
     }, [lastUpdate]);
 
 
     useEffect(() => {
-        if (null === createTrees) {
+        if (null === createTypes) {
             return;
         }
-        axios.post(URL, createTrees)
+        axios.post(URL, createTypes)
         .then(res => {
             setLastUpdate(Date.now());
             console.log(res.data);
         })
-    }, [createTrees]);
+    }, [createTypes]);
 
 
     useEffect(() => {
-        if (null === deleteTrees) {
+        if (null === deleteTypes) {
             return;
         }
-        axios.delete(URL + '/' + deleteTrees.id)
+        axios.delete(URL + '/' + deleteTypes.id)
         .then(res => {
             setLastUpdate(Date.now());
             console.log(res.data);
         })
-    }, [deleteTrees]);
+    }, [deleteTypes]);
 
 
     useEffect(() => {
-        if (null === editTrees) {
+        if (null === editTypes) {
             return;
         }
-        axios.put(URL + '/' + editTrees.id, editTrees)
+        axios.put(URL + '/' + editTypes.id, editTypes)
         .then(res => {
             // setLastUpdate(Date.now());
             console.log(res.data);
         })
-    }, [editTrees]);
+    }, [editTypes]);
 
 
     
     
-    return [trees, setCreateTrees, setEditTrees, setDeleteTrees];
+    return [types, setCreateTypes, setEditTypes, setDeleteTypes];
 
 }

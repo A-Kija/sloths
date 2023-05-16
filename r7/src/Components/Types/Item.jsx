@@ -52,12 +52,6 @@ export default function Item({ tree }) {
         <div className="list-item">
             <div className="info">
                 <input type="text" className="title" value={input.title} onChange={e => changeInput(e, 'title')} />
-                <input type="text" className="height" value={input.height} onChange={e => changeInput(e, 'height')} />
-                <select value={input.type} onChange={e => changeInput(e, 'type')}>
-                    {
-                        treeTypes.map(t => <option key={t.id} value={t.id}>{t.title}</option>)
-                    }
-                </select>
             </div>
             <div className="buttons">
                 <button className={'small ' + (delClick ? 'yellow' : 'red')} onClick={cut}>cut</button>
