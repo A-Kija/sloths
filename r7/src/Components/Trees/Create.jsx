@@ -3,7 +3,7 @@ import { Data } from '../../Data';
 
 export default function Create() {
 
-    const { treeTypes, setCreateTrees } = useContext(Data);
+    const { types, setCreateTrees } = useContext(Data);
 
     const [input, setInput] = useState({
         title: '',
@@ -57,7 +57,7 @@ export default function Create() {
                                 <select className="form-select" value={input.type}  onChange={e => changeInput(e, 'type')}>
                                     <option key={0} value={0}>Select type</option>
                                     {
-                                        treeTypes.map(t => <option key={t.id} value={t.id}>{t.title}</option>)
+                                        types?.map(t => <option key={t.id} value={t.id}>{t.title}</option>)
                                     }
                                 </select>
                             </div>

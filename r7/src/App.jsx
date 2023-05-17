@@ -5,12 +5,14 @@ import TypesList from './Components/Types/List';
 import Tab from './Components/Tab';
 import { useContext } from 'react';
 import { Data } from './Data';
+import Messages from './Components/Messages';
 
 function App() {
 
   const { tab } = useContext(Data);
 
   return (
+    <>
     <div className="container">
       <div className="row">
         <div className="col-4">
@@ -23,6 +25,8 @@ function App() {
         </div>
       </div>
     </div>
+    <Messages />
+    </>
   );
 }
 

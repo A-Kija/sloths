@@ -115,6 +115,7 @@ app.get('/types', (req, res) => {
 });
 
 
+
 // INSERT INTO table_name (column1, column2, column3, ...)
 // VALUES (value1, value2, value3, ...);
 app.post('/types', (req, res) => {
@@ -159,6 +160,28 @@ app.put('/types/:id', (req, res) => {
             status: 'ok',
         });
     });
+});
+
+
+// SELECT COUNT(CustomerID), Country
+// FROM Customers
+// GROUP BY Country;
+
+// TYPES COUNT
+app.get('/types-count', (req, res) => {
+    const sql = `
+        SELECT COUNT(type) AS count, type
+        FROM trees
+        GROUP BY type
+    `;
+    connection.query(sql, (err, result) => {
+        if (err) throw err
+        res.json({
+            status: 'ok',
+            result
+        });
+    });
+
 });
 
 

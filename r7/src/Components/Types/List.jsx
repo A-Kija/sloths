@@ -11,7 +11,7 @@ export default function List() {
             <h5 className="card-title color-gray">All types</h5>
             {
                 types
-                    ? types.map(t => <Item key={t.id} tree={t} />)
+                    ? types.map(t => <Item key={t.id} type={t} />)
                     : <h5 className="color-green">Loading...</h5>
             }
         </div>

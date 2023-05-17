@@ -10,13 +10,14 @@ export default function useTrees() {
     const [editTrees, setEditTrees] = useState(null);
     const [deleteTrees, setDeleteTrees] = useState(null);
 
-    const [lastUpdate, setLastUpdate] = useState(Date.now());
+    const [lastUpdate, setLastUpdate] = useState(null);
+
+    const [message, setMessage] = useState(null);
 
 
     useEffect(() => {
         axios.get(URL)
         .then(res => {
-            console.log(res.data.result)
             setTrees(res.data.result);
         });
     }, [lastUpdate]);
@@ -30,6 +31,11 @@ export default function useTrees() {
         .then(res => {
             setLastUpdate(Date.now());
             console.log(res.data);
+            setMessage({
+                type: 'ok',
+                title: 'Trees',
+                text: 'New tree was planted!' 
+            });
         })
     }, [createTrees]);
 
@@ -52,7 +58,7 @@ export default function useTrees() {
         }
         axios.put(URL + '/' + editTrees.id, editTrees)
         .then(res => {
-            // setLastUpdate(Date.now());
+            setLastUpdate(Date.now());
             console.log(res.data);
         })
     }, [editTrees]);
@@ -60,6 +66,6 @@ export default function useTrees() {
 
     
     
-    return [trees, setCreateTrees, setEditTrees, setDeleteTrees];
+    return [trees, setCreateTrees, setEditTrees, setDeleteTrees, lastUpdate, message];
 
 }
