@@ -9,9 +9,7 @@ export default function useTrees() {
     const [createTrees, setCreateTrees] = useState(null);
     const [editTrees, setEditTrees] = useState(null);
     const [deleteTrees, setDeleteTrees] = useState(null);
-
     const [lastUpdate, setLastUpdate] = useState(null);
-
     const [message, setMessage] = useState(null);
 
 
@@ -30,12 +28,7 @@ export default function useTrees() {
         axios.post(URL, createTrees)
         .then(res => {
             setLastUpdate(Date.now());
-            console.log(res.data);
-            setMessage({
-                type: 'ok',
-                title: 'Trees',
-                text: 'New tree was planted!' 
-            });
+            setMessage(res.data.showMessage);
         })
     }, [createTrees]);
 
@@ -47,7 +40,7 @@ export default function useTrees() {
         axios.delete(URL + '/' + deleteTrees.id)
         .then(res => {
             setLastUpdate(Date.now());
-            console.log(res.data);
+            setMessage(res.data.showMessage);
         })
     }, [deleteTrees]);
 
@@ -59,7 +52,7 @@ export default function useTrees() {
         axios.put(URL + '/' + editTrees.id, editTrees)
         .then(res => {
             setLastUpdate(Date.now());
-            console.log(res.data);
+            setMessage(res.data.showMessage);
         })
     }, [editTrees]);
 

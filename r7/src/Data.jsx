@@ -9,7 +9,7 @@ export const Data = createContext();
 export const  DataProvider = ({children}) => {
 
     const [trees, setCreateTrees, setEditTrees, setDeleteTrees, lastUpdateTrees, treeMessage] = useTrees();
-    const [types, setCreateTypes, setEditTypes, setDeleteTypes, lastUpdateTypes] = useTypes();
+    const [types, setCreateTypes, setEditTypes, setDeleteTypes, lastUpdateTypes, typeMessage] = useTypes();
     const [tab, setTab] = useState('trees');
     const [typesCount, setLastUpdateTypesCount] = useTypesCount();
     const [msg, addMessage, removeMessage] = useMessages();
@@ -20,7 +20,14 @@ export const  DataProvider = ({children}) => {
             return;
         }
         addMessage(treeMessage);
-    }, [treeMessage])
+    }, [treeMessage]);
+
+    useEffect(() => {
+        if (null === typeMessage) {
+            return;
+        }
+        addMessage(typeMessage);
+    }, [typeMessage]);
 
 
     useEffect(() => {
