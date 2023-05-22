@@ -1,9 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { Data } from "../../Data";
+import { useContext, useEffect, useState } from 'react';
+import { Data } from '../../Data';
+import validateSubmit, { sanitizeInput } from '../../Validations/typesValidation';
 
 export default function Item({ type }) {
 
-    const { setDeleteTypes, setEditTypes, typesCount } = useContext(Data);
+    const { setDeleteTypes, setEditTypes, typesCount, addMessage } = useContext(Data);
+    const [errors, setErrors] = useState(new Set());
     const [delClick, setDelClick] = useState(false);
 
     const [input, setInput] = useState({
@@ -19,10 +21,20 @@ export default function Item({ type }) {
     }, [type]);
 
     const save = _ => {
-        setEditTypes({
-            title: input.title,
-            id: type.id
+        const data = {
+            title: input.title
+        }
+        if (!validateSubmit(data, setErrors, addMessage)) {
+            return;
+        }
+        setEditTypes({...data,  id: type.id });
+    }
+
+    const cancel = _ => {
+        setInput({
+            title: type.title,
         });
+        setErrors(new Set());
     }
 
     const remove = _ => {
@@ -37,16 +49,17 @@ export default function Item({ type }) {
 
     const changeInput = (e, prop) => {
         let value = e.target.value;
+        value = sanitizeInput(value, prop);
         setInput(i => ({ ...i, [prop]: value }));
     }
 
     return (
         <div className="list-item">
             <div className="info">
-                <input type="text" className="title" value={input.title} onChange={e => changeInput(e, 'title')} />
+                <input type="text" className={'title' + (errors.has('title') ? ' error' : '')} value={input.title} onChange={e => changeInput(e, 'title')} />
             </div>
             <div className="bottom">
-            <div className="count">{typesCount.find(t => t.type === type.id)?.count || 0}</div>
+            <div className="count">{typesCount.find(t => t.type === type.id)?.count || 0} trees of this type</div>
                 <div className="buttons">
                     {
                         typesCount.find(t => t.type === type.id)?.count 
@@ -54,6 +67,7 @@ export default function Item({ type }) {
                         : <button className={'small ' + (delClick ? 'yellow' : 'red')} onClick={remove}>remove</button>
                     }
                     <button className="small blue" onClick={save}>save</button>
+                    <button className="small yellow" onClick={cancel}>cancel</button>
                 </div>
             </div>
         </div>

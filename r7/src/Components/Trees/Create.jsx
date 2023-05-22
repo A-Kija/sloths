@@ -16,11 +16,8 @@ export default function Create() {
 
     const changeInput = (e, prop) => {
         let value = e.target.value;
-        value = sanitizeInput(value, prop);
-        
-        if (prop === 'height') {
-            value = value.replace(/[^\d\.]/g, '');
-        }
+        value = sanitizeInput(value, prop, input[prop]);
+
         setInput(i => ({...i, [prop]: value}));
     }
 

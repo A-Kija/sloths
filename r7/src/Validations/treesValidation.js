@@ -1,5 +1,5 @@
 export default function validateSubmit(tree, setErrors, addMessage) {
-    const errors = new Set;
+    const errors = new Set();
 
     if (!tree.hasOwnProperty('title') ||
         typeof tree.title !== 'string' ||
@@ -35,14 +35,16 @@ export default function validateSubmit(tree, setErrors, addMessage) {
     return true;
 }
 
-export const sanitizeInput = (value, prop) => {
+export const sanitizeInput = (value, prop, oldValue) => {
 
     if (prop === 'title') {
         value = value.replace(/[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ ]/g, '');
     }
     if (prop === 'height') {
-        //^\d[.\d]{0,1}\d+$
+        if (value.match(/^\d*[.\d]{0,1}\d*$/)) {
+            return value;
+        }
+        return oldValue;
     }
-
     return value;
 }

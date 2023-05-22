@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Data } from '../../Data';
-import validateSubmit from '../../Validations/typesValidation';
+import validateSubmit, { sanitizeInput } from '../../Validations/typesValidation';
 
 export default function Create() {
 
@@ -14,6 +14,7 @@ export default function Create() {
 
     const changeInput = (e, prop) => {
         let value = e.target.value;
+        value = sanitizeInput(value, prop);
         setInput(i => ({...i, [prop]: value}));
     }
 
