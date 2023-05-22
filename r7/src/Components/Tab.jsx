@@ -17,6 +17,7 @@ export default function Tab(props) {
                 <div className="tabs">
                     <div className={'tab' + ('trees' === tab ? ' active' : '')} onClick={_=> setTab('trees')}>trees</div>
                     <div className={'tab' + ('types' === tab ? ' active' : '')} onClick={_=> setTab('types')}>types</div>
+                    <div className={'tab' + ('parks' === tab ? ' active' : '')} onClick={_=> setTab('parks')}>parks</div>
                 </div>
                 </header>
             </h2>
