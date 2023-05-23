@@ -11,7 +11,7 @@ export default function List() {
             <h5 className="card-title color-gray">All Parks</h5>
             {
                 parks
-                    ? parks.map(t => <Item key={t.id} type={t} />)
+                    ? parks.map(p => <Item key={p.id} park={p} />)
                     : <h5 className="color-green">Loading...</h5>
             }
         </div>

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Data } from '../../Data';
 import validateSubmit, { sanitizeInput } from '../../Validations/parksValidation';
 
-export default function Item({ type }) {
+export default function Item({ park }) {
 
     const { setDeleteParks, setEditParks, addMessage } = useContext(Data);
     const [errors, setErrors] = useState(new Set());
@@ -11,14 +11,14 @@ export default function Item({ type }) {
     const [input, setInput] = useState({
         title: '',
         height: '',
-        type: 0
+        park: 0
     });
 
     useEffect(() => {
         setInput({
-            title: type.title,
+            title: park.title,
         });
-    }, [type]);
+    }, [park]);
 
     const save = _ => {
         const data = {
@@ -27,19 +27,19 @@ export default function Item({ type }) {
         if (!validateSubmit(data, setErrors, addMessage)) {
             return;
         }
-        setEditParks({...data,  id: type.id });
+        setEditParks({...data,  id: park.id });
     }
 
     const cancel = _ => {
         setInput({
-            title: type.title,
+            title: park.title,
         });
         setErrors(new Set());
     }
 
     const remove = _ => {
         if (delClick) {
-            setDeleteParks(type);
+            setDeleteParks(park);
         } else {
             setDelClick(true);
             setTimeout(() => setDelClick(false), 1000);
@@ -58,10 +58,22 @@ export default function Item({ type }) {
             <div className="parks info">
                 <input type="text" className={'title' + (errors.has('title') ? ' error' : '')} value={input.title} onChange={e => changeInput(e, 'title')} />
             </div>
+            <div className="details">
+            <div className="count">Types count: {park.types.length}</div>
+            <div className="types-list">
+                <ul>
+                    {
+                        park.types.map((t, i) => <li key={i}>{t}</li>)
+                    }
+                </ul>
+            </div>
+            </div>
             <div className="bottom">
                 <div className="buttons">
-                    <button className={'small ' + (delClick ? 'yellow' : 'red')} onClick={remove}>remove</button>
-                     <button className="small blue" onClick={save}>save</button>
+                    <button className="small blue" onClick={save}>save</button>
+                    {
+                        !park.types.length ? <button className={'small ' + (delClick ? 'yellow' : 'red')} onClick={remove}>remove</button> : null
+                    }
                     <button className="small yellow" onClick={cancel}>cancel</button>
                 </div>
             </div>

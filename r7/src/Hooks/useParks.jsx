@@ -16,7 +16,21 @@ export default function useParks() {
     useEffect(() => {
         axios.get(URL)
         .then(res => {
-            setParks(res.data.result);
+            const parks = [];
+            res.data.result.forEach(l => {
+                const p = parks.find(p => p.id === l.id);
+                const typeTitle = l.typeTitle;
+                delete l.typeTitle;
+                if (!p) {
+                    l.types = [];
+                    typeTitle && l.types.push(typeTitle);
+                    parks.push({...l});
+                } else {
+                    typeTitle && p.types.push(typeTitle);
+                }
+            });
+            console.log(parks);
+            setParks(parks);
         });
     }, [lastUpdate]);
 
@@ -59,6 +73,6 @@ export default function useParks() {
 
     
     
-    return [parks, setCreateParks, setEditParks, setDeleteParks, message];
+    return [parks, setCreateParks, setEditParks, setDeleteParks, setLastUpdate, message];
 
 }
