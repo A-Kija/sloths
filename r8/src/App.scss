@@ -1,0 +1,93 @@
+.app {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    .left {
+        width: 30%;
+    }
+    .right {
+        width: 60%;
+    }
+
+    .box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .inputs {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 30px;
+            .input {
+                padding: 40px;
+                border: 1px dotted skyblue;
+                border-radius: 5px;
+                width: 100%;
+                box-sizing: border-box;
+                [type="text"] {
+                    font-size: 20px;
+                    outline: none;
+                    background-color: transparent;
+                    border: none;
+                    border-bottom: 1px solid aliceblue;
+                    color: aliceblue;
+                    text-indent: 5px;
+                }
+            }
+        }
+        .img {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px dotted skyblue;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            .remove {
+                position: absolute;
+                top: 0;
+                right: 5px;
+                cursor: pointer;
+                &::after {
+                    content: '\2A37';
+                    color: #dc143c97;
+                    font-size: 40px;
+                    transition: all .15s;
+                }
+                &:hover:after {
+                    color: #dc143cb9;
+                }
+            }
+
+        }
+    }
+}
+
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+    width: 150px;
+    overflow: hidden;
+  }
+  .custom-file-input::before {
+    content: 'add image';
+    display: inline-block;
+    background: transparent;
+    border: 1px solid aliceblue;
+    border-radius: 4px;
+    padding: 5px 18px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-size: 20px;
+  }
