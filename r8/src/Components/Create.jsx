@@ -1,13 +1,25 @@
 import { useState } from "react"
 import useFile from "../useFile";
 import '../buttons.scss';
+import axios from 'axios';
 
-export default function Create() {
+export default function Create({setLastUpdate}) {
 
     const [title, setTitle] = useState('');
     const [file, readFile, removeFile] = useFile();
 
-
+    const add = _ => {
+        axios.post('http://localhost:3003/images', {file, title})
+        .then(res => {
+            console.log(res.data);
+            setLastUpdate(Date.now());
+        })
+        .catch(error => {
+            console.log(error);
+        });
+        setTitle('')
+        removeFile();
+    }
 
 
     return (
@@ -23,13 +35,13 @@ export default function Create() {
             </div>
             <div className="img">
                 {
-                    file ? <img src={file}></img> : <img src="../no.png"></img>
+                    file ? <img src={file}></img> : <img src="./no.png"></img>
                 }
                 {
                     file ? <div className="remove" onClick={removeFile}></div> : null
                 }
             </div>
-            <button className="blue">add</button>
+            <button className="blue" onClick={add}>add</button>
         </div>
     )
 }

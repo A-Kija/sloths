@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const app = express();
 const port = 3003;
-
+app.use(express.json({limit: '10mb'}));
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
@@ -18,7 +18,7 @@ app.use(
         extended: true,
     })
 );
-app.use(express.json());
+
 
 const mysql = require('mysql')
 const connection = mysql.createConnection({
@@ -31,26 +31,21 @@ connection.connect();
 
 
 
-// TREES
+app.get('/images', (_, res) => {
+    const sql = `
+        SELECT *
+        FROM photos
+    `;
+    connection.query(sql, (err, result) => {
+        if (err) throw err
+        res.json({
+            status: 'ok',
+            result
+        });
+    });
+});
 
-// SELECT column1, column2, ...
-// FROM table_name;
-// app.get('/trees', (req, res) => {
-//     const sql = `
-//         SELECT id, height, type, title
-//         FROM trees
-//     `;
-//     connection.query(sql, (err, result) => {
-//         if (err) throw err
-//         res.json({
-//             status: 'ok',
-//             result
-//         });
-//     });
-// });
 
-// INSERT INTO table_name (column1, column2, column3, ...)
-// VALUES (value1, value2, value3, ...);
 app.post('/images', (req, res) => {
     const sql = `
     INSERT INTO photos (title, file)
@@ -69,24 +64,24 @@ app.post('/images', (req, res) => {
     });
 });
 
-// DELETE FROM table_name WHERE condition;
-// app.delete('/trees/:id', (req, res) => {
-//     const sql = `
-//         DELETE FROM trees
-//         WHERE id = ?
-//     `;
-//     connection.query(sql, [req.params.id], (err, _) => {
-//         if (err) throw err
-//         res.json({
-//             status: 'ok',
-//             showMessage: {
-//                 type: 'info',
-//                 title: 'Trees',
-//                 text: 'The tree was cut!'
-//             }
-//         });
-//     });
-// });
+
+app.delete('/images/:id', (req, res) => {
+    const sql = `
+        DELETE FROM photos
+        WHERE id = ?
+    `;
+    connection.query(sql, [req.params.id], (err, _) => {
+        if (err) throw err
+        res.json({
+            status: 'ok',
+            showMessage: {
+                type: 'info',
+                title: 'Trees',
+                text: 'The tree was cut!'
+            }
+        });
+    });
+});
 
 // UPDATE table_name
 // SET column1 = value1, column2 = value2, ...
