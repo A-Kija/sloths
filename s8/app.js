@@ -51,7 +51,7 @@ app.post('/images', (req, res) => {
     INSERT INTO photos (title, file)
     VALUES (?, ?)
     `;
-    connection.query(sql, [req.body.title, req.body.file], (err, _) => {
+    connection.query(sql, [req.body.title, req.body.file ? req.body.file : null], (err, _) => {
         if (err) throw err
         res.json({
             status: 'ok',
@@ -83,27 +83,25 @@ app.delete('/images/:id', (req, res) => {
     });
 });
 
-// UPDATE table_name
-// SET column1 = value1, column2 = value2, ...
-// WHERE condition;
-// app.put('/trees/:id', (req, res) => {
-//     const sql = `
-//         UPDATE trees
-//         SET title = ?, height = ?, type = ?
-//         WHERE id = ?
-//     `;
-//     connection.query(sql, [req.body.title, req.body.height, req.body.type, req.params.id], (err, _) => {
-//         if (err) throw err
-//         res.json({
-//             status: 'ok',
-//             showMessage: {
-//                 type: 'info',
-//                 title: 'Trees',
-//                 text: 'The tree was updated!'
-//             }
-//         });
-//     });
-// });
+
+app.put('/images/:id', (req, res) => {
+    const sql = `
+        UPDATE photos
+        SET title = ?, file = ?
+        WHERE id = ?
+    `;
+    connection.query(sql, [req.body.title, req.body.file ? req.body.file : null, req.params.id], (err, _) => {
+        if (err) throw err
+        res.json({
+            status: 'ok',
+            showMessage: {
+                type: 'info',
+                title: 'Trees',
+                text: 'The tree was updated!'
+            }
+        });
+    });
+});
 
 
 

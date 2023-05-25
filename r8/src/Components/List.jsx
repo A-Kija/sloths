@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-export default function List({ lastUpdate, setLastUpdate }) {
+export default function List({ lastUpdate, setLastUpdate, setModal }) {
 
     const [images, setImages] = useState(null);
 
@@ -27,10 +27,15 @@ export default function List({ lastUpdate, setLastUpdate }) {
                 !images ? null :
                     images.map(i =>
                         <div className="image-bin" key={i.id}>
-                            <img src={i.file}></img>
+                            {
+                                i.file
+                                ? <img src={i.file}></img>
+                                : <div className="no-image">No Image</div>
+                            }
+                            
                             <div className="title">{i.title}</div>
                             <div className="tool-bar">
-                                <span className="edit"></span>
+                                <span className="edit" onClick={_ => setModal(i)}></span>
                                 <span className="remove" onClick={_ => remove(i.id)}></span>
                             </div>
                         </div>

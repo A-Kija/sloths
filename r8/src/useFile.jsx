@@ -33,6 +33,6 @@ export default function useFile() {
 
 
 
-    return [file, readFile, removeFile];
+    return [file, readFile, removeFile, setFile];
 
 }

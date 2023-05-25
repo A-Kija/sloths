@@ -1,5 +1,5 @@
-import { useState } from "react"
-import useFile from "../useFile";
+import { useState } from 'react';
+import useFile from '../useFile';
 import '../buttons.scss';
 import axios from 'axios';
 
