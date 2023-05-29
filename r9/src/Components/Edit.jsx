@@ -6,6 +6,8 @@ import axios from 'axios';
 export default function Edit({ setLastUpdate, modal, setModal }) {
 
     const [title, setTitle] = useState('');
+    const [remove, setRemove] = useState(false);
+    const [url, setUrl] = useState('');
     const [file, readFile, removeFile, setFile] = useFile();
 
     useEffect(() => {
@@ -13,8 +15,33 @@ export default function Edit({ setLastUpdate, modal, setModal }) {
             return;
         }
         setTitle(modal.title);
-        setFile(modal.file);
-    }, [modal])
+        setUrl(modal.url);
+
+
+    }, [modal]);
+
+    const clickRemove = _ => {
+        setUrl('')
+        setRemove(true);
+        removeFile();
+    }
+
+    const makeReadFile = e => {
+        setUrl('')
+        setRemove(false);
+        readFile(e);
+    }
+
+    const close = _ => {
+        setModal(null);
+        setUrl('');
+        removeFile();
+    }
+
+    const undo = _ => {
+        setUrl(modal.url);
+        removeFile();
+    }
 
     const save = _ => {
         axios.put('http://localhost:3003/images/' + modal.id, { file, title })
@@ -42,20 +69,30 @@ export default function Edit({ setLastUpdate, modal, setModal }) {
                             <input type="text" placeholder="image text" value={title} onChange={e => setTitle(e.target.value)}></input>
                         </div>
                         <div className="input">
-                            <input type="file" className="custom-file-input" onChange={readFile}></input>
+                            <input type="file" className="custom-file-input" onChange={makeReadFile}></input>
                         </div>
                     </div>
                     <div className="img">
                         {
-                            file ? <img src={file}></img> : <img src="./no.png"></img>
+                            url ? <img src={'http://localhost:3003/img/' + modal.url}></img> : null
                         }
                         {
-                            file ? <div className="remove" onClick={removeFile}></div> : null
+                            file ? <img src={file}></img> : null
+                        }
+                        {
+                            !url && !file ? <img src="./no.png"></img> : null
+                        }
+
+                        {
+                            url || file ? <div className="remove" onClick={clickRemove}></div> : null
+                        }
+                        {
+                            !url && modal.url ? <div className="undo" onClick={undo}></div> : null
                         }
                     </div>
                     <button className="blue" onClick={save}>save</button>
                 </div>
-                <div className="close-button" onClick={_ => setModal(null)}></div>
+                <div className="close-button" onClick={close}></div>
             </div>
         </div>
     );

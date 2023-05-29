@@ -94,7 +94,6 @@ app.post('/images', (req, res) => {
 app.delete('/images/:id', (req, res) => {
 
     let sql;
-
     sql = `
     SELECT url
     FROM images

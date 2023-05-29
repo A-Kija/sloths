@@ -79,6 +79,24 @@
                 }
             }
 
+            .undo {
+                position: absolute;
+                top: -5px;
+                left: 20px;
+                cursor: pointer;
+
+                &::after {
+                    content: '\238C';
+                    color: rgba(126, 252, 0, 0.537);
+                    font-size: 40px;
+                    transition: all .15s;
+                }
+
+                &:hover:after {
+                    color: rgba(126, 252, 0, 0.713)
+                }
+            }
+
         }
         .image-bin {
             width: 100%;
