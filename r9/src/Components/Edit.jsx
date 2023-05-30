@@ -10,6 +10,13 @@ export default function Edit({ setLastUpdate, modal, setModal }) {
     const [url, setUrl] = useState('');
     const [file, readFile, removeFile, setFile] = useFile();
 
+
+    useEffect(() => {
+
+        console.log('REMOVE:', remove);
+
+    }, [remove])
+
     useEffect(() => {
         if (null === modal) {
             return;
@@ -36,6 +43,7 @@ export default function Edit({ setLastUpdate, modal, setModal }) {
         setModal(null);
         setUrl('');
         removeFile();
+        setRemove(false);
     }
 
     const undo = _ => {
@@ -44,7 +52,7 @@ export default function Edit({ setLastUpdate, modal, setModal }) {
     }
 
     const save = _ => {
-        axios.put('http://localhost:3003/images/' + modal.id, { file, title })
+        axios.put('http://localhost:3003/images/' + modal.id, { file, title, remove })
             .then(res => {
                 console.log(res.data);
                 setLastUpdate(Date.now());
@@ -52,7 +60,10 @@ export default function Edit({ setLastUpdate, modal, setModal }) {
             .catch(error => {
                 console.log(error);
             });
-        setModal(null)
+        setModal(null);
+        setUrl('');
+        removeFile();
+        setRemove(false);
     }
 
     if (null === modal) {

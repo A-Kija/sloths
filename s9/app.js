@@ -31,6 +31,52 @@ const connection = mysql.createConnection({
 connection.connect();
 
 
+function deleteImage(id) {
+
+    const sql = `
+    SELECT url
+    FROM images
+    WHERE id = ?
+    `;
+
+    connection.query(sql, [id], (err, result) => {
+        if (err) throw err
+        if (result[0] && result[0].url) {
+            fs.unlinkSync('./public/img/' + result[0].url)
+        }
+    });
+
+}
+
+function addImage(upFile) {
+
+    let type = 'unknow';
+    let file;
+
+    if (upFile.indexOf('data:image/jpeg;base64,') === 0) {
+        type = 'jpg';
+        file = Buffer.from(upFile.replace('data:image/jpeg;base64,', ''), 'base64');
+
+    } else if (upFile.indexOf('data:image/png;base64,') === 0) {
+        type = 'png';
+        file = Buffer.from(upFile.replace('data:image/png;base64,', ''), 'base64');
+
+    } else if (upFile.indexOf('data:image/gif;base64,') === 0) {
+        type = 'gif';
+        file = Buffer.from(upFile.replace('data:image/gif;base64,', ''), 'base64');
+
+    } else {
+        file = Buffer.from(upFile, 'base64');
+    }
+
+    fileName = uuidv4() + '.' + type;
+
+    fs.writeFileSync('./public/img/' + fileName, file);
+
+    return fileName;
+}
+
+
 
 app.get('/images', (_, res) => {
     const sql = `
@@ -49,34 +95,7 @@ app.get('/images', (_, res) => {
 
 app.post('/images', (req, res) => {
 
-    let fileName = null;
-
-    if (req.body.file !== null) {
-
-        let type = 'unknow';
-        let file;
-
-        if (req.body.file.indexOf('data:image/jpeg;base64,') === 0) {
-            type = 'jpg';
-            file = Buffer.from(req.body.file.replace('data:image/jpeg;base64,', ''), 'base64');
-
-        } else if (req.body.file.indexOf('data:image/png;base64,') === 0) {
-            type = 'png';
-            file = Buffer.from(req.body.file.replace('data:image/png;base64,', ''), 'base64');
-
-        } else if (req.body.file.indexOf('data:image/gif;base64,') === 0) {
-            type = 'gif';
-            file = Buffer.from(req.body.file.replace('data:image/gif;base64,', ''), 'base64');
-
-        } else {
-            file = Buffer.from(req.body.file, 'base64');
-        }
-
-        fileName = uuidv4() + '.' + type;
-
-        fs.writeFileSync('./public/img/' + fileName, file);
-
-    }
+    const fileName = req.body.file !== null ? addImage(req.body.file) : null;
 
     const sql = `
     INSERT INTO images (title, url)
@@ -93,21 +112,9 @@ app.post('/images', (req, res) => {
 
 app.delete('/images/:id', (req, res) => {
 
-    let sql;
-    sql = `
-    SELECT url
-    FROM images
-    WHERE id = ?
-    `;
+    deleteImage(req.params.id);
 
-    connection.query(sql, [req.params.id], (err, result) => {
-        if (err) throw err
-        if (result[0] && result[0].url) {
-            fs.unlinkSync('./public/img/' + result[0].url)
-        }
-    });
-
-    sql = `
+    const sql = `
         DELETE FROM images
         WHERE id = ?
     `;
@@ -121,12 +128,33 @@ app.delete('/images/:id', (req, res) => {
 
 
 app.put('/images/:id', (req, res) => {
-    const sql = `
-        UPDATE photos
-        SET title = ?, file = ?
+
+    if (req.body.file || req.body.remove) {
+        deleteImage(req.params.id);
+    }
+
+    
+    let sql;
+    let params;
+
+    if (req.body.file || req.body.remove) {
+        const fileName = req.body.file ? addImage(req.body.file) : null;
+        sql = `
+        UPDATE images
+        SET title = ?, url = ?
         WHERE id = ?
-    `;
-    connection.query(sql, [req.body.title, req.body.file ? req.body.file : null, req.params.id], (err, _) => {
+        `;
+        params = [req.body.title, fileName, req.params.id];
+    } else {
+        sql = `
+        UPDATE images
+        SET title = ?
+        WHERE id = ?
+        `;
+        params = [req.body.title, req.params.id];
+    }
+
+    connection.query(sql, params, (err, _) => {
         if (err) throw err
         res.json({
             status: 'ok',
