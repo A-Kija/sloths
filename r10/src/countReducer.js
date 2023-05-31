@@ -1,23 +1,16 @@
+import team1Reducer from './team1Reducer';
+import team2Reducer from './team2Reducer';
+
 export default function countReducer(state, action) {
 
-    let s = state;
-
-    switch(action.type) {
-        case 'add_one':
-            s++;
-        break;
-        case 'remove_1':
-            s--;
-        break;
-        case 'r_33':
-            s -= 33;
-        break;
-        case 'add_some':
-            s += parseInt(action.payload);
-        break;
-        default:
+    if (action.type <= 100) {
+        return team1Reducer(state, action);
     }
 
-    return s;
+    if (action.type <= 200) {
+        return team2Reducer(state, action)
+    }
+
+    return state;
 
 }
