@@ -1,0 +1,29 @@
+.app {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 40px 0 0 0;
+    .books-list {
+        width: 90%;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 10px;
+        .book {
+            width: 250px;
+            height: 400px;
+            padding: 10px;
+            background-color: #6494ed44;
+            border-radius: 10px;
+            h2 {
+                margin: 0;
+                text-align: center;
+                height: 88px;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+    
