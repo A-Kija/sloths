@@ -10,7 +10,7 @@ export default function Books() {
         <div className="books-list">
             {
                 books
-                    ? books.map(b => <Book key={b.id} book={b} />)
+                    ? books.map(b => b.show.size ? null : <Book key={b.id} book={b} />)
                     : <h2>LOADING...</h2>
             }
         </div>
