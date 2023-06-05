@@ -1,4 +1,4 @@
-import { LOAD_FROM_SERVER, SEARCH_BOOK, SORT_BOOKS } from "./constants";
+import { FILTER_PRICE, FILTER_TYPES, LOAD_FROM_SERVER, SEARCH_BOOK, SORT_BOOKS } from "./constants";
 
 export default function reducer(state, action) {
     let s = state ? [...state] : null;
@@ -30,13 +30,44 @@ export default function reducer(state, action) {
             }
             break;
         case SEARCH_BOOK:
-            s.forEach(b => {
-                if (b.title.toLowerCase().includes(action.payload.toLowerCase())) {
-                    b.show.delete('search');
+            if (null !== s) {
+                s.forEach(b => {
+                    if (b.title.toLowerCase().includes(action.payload.toLowerCase())) {
+                        b.show.delete('search');
+                    } else {
+                        b.show.add('search');
+                    }
+                });
+            }
+            break;
+
+        case FILTER_PRICE:
+            if (null !== s) {
+                s.forEach(b => {
+                    if (b.price >= action.payload[0] && b.price <= action.payload[1]) {
+                        b.show.delete('price');
+                    } else {
+                        b.show.add('price');
+                    }
+                });
+            }
+            break;
+        case FILTER_TYPES:
+            if (null !== s) {
+                if (!action.payload.size) {
+                    s.forEach(b => {
+                        b.show.delete('type');
+                    });
                 } else {
-                    b.show.add('search');
+                    s.forEach(b => {
+                        if (action.payload.has(b.type)) {
+                            b.show.delete('type');
+                        } else {
+                            b.show.add('type');
+                        }
+                    });
                 }
-            });
+            }
             break;
 
         default:
