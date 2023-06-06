@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Store } from '../Store';
-import { filterPrice, filterTypes, searchBook, sortBooks } from '../action';
+import { changePerPage, filterPrice, filterTypes, searchBook, sortBooks } from '../action';
 
 export default function Menu() {
 
@@ -9,6 +9,7 @@ export default function Menu() {
     const [priceRange, setPriceRange] = useState([0, 0]);
     const [typesSelect, setTypesSelect] = useState(new Set());
     const { sorts, dispachBooks, books, types } = useContext(Store);
+    const [perPage, setPerPage] = useState(3);
 
     const minMax = useRef([]);
 
@@ -19,15 +20,17 @@ export default function Menu() {
         if (minMax.current.length) {
             return;
         }
-        minMax.current[0] = Math.floor(Math.min(...books.map(b => b.price)));
-        minMax.current[1] = Math.ceil(Math.max(...books.map(b => b.price)));
+        minMax.current[0] = Math.floor(Math.min(...books.list.map(b => b.price)));
+        minMax.current[1] = Math.ceil(Math.max(...books.list.map(b => b.price)));
         setPriceRange([...minMax.current])
 
 
     }, [books]);
 
 
-
+    useEffect(_ => {
+        dispachBooks(changePerPage(perPage));
+    }, [perPage, dispachBooks]);
 
     useEffect(_ => {
         dispachBooks(sortBooks(sort));
@@ -73,6 +76,10 @@ export default function Menu() {
         setSort(s);
     }
 
+    const perPageChange = s => {
+        setPerPage(s);
+    }
+
     const searchChange = e => {
         setSearch(e.target.value);
     }
@@ -86,6 +93,22 @@ export default function Menu() {
 
     return (
         <div className="menu">
+            <fieldset>
+                <legend>Results per page</legend>
+                <div className="labels">
+                    {
+                        ['all', 5, 3, 2, 1].map(s =>
+                            <label
+                                key={s}
+                                className={perPage === s ? 'active' : null}
+                                onClick={_ => perPageChange(s)}
+                            >
+                                {s}
+                            </label>)
+                    }
+                </div>
+            </fieldset>
+
             <fieldset>
                 <legend>sort</legend>
                 <div className="labels">
